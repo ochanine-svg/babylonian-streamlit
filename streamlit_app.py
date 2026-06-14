@@ -119,7 +119,7 @@ def compute_iterations(a, x, use_fractions, number_of_iterations):
                 rows.append(
                     {
                         "n": k,
-                        "exact value": "fraction too long",
+                        "exact value": 
                         "decimal approximation": f"{x:.14f}",
                         "mode": "switched to decimal",
                     }
