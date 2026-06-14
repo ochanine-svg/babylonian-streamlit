@@ -173,7 +173,7 @@ rows = compute_iterations(
     x0,
     use_fractions,
     number_of_iterations,
-    max_fraction_digits,
+    
 )
 
 st.subheader("Iterations")
