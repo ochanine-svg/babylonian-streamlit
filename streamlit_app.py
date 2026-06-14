@@ -178,17 +178,32 @@ rows = compute_iterations(
 
 st.subheader("Iterations")
 
-st.dataframe(
-    rows,
-    hide_index=True,
-    use_container_width=True,
-    column_config={
-        "exact value": st.column_config.TextColumn(
-            "exact value",
-            
-        ),
-    },
-)
+phone_friendly = st.checkbox("Phone-friendly display", value=True)
+
+if phone_friendly:
+    for row in rows:
+        st.markdown(f"**x_{row['n']}**")
+
+        if row["exact value"]:
+            st.write("Exact value:")
+            st.code(row["exact value"])
+
+        st.write(f"Decimal approximation: `{row['decimal approximation']}`")
+        st.caption(f"Mode: {row['mode']}")
+        st.divider()
+
+else:
+    st.dataframe(
+        rows,
+        hide_index=True,
+        width="stretch",
+        column_config={
+            "exact value": st.column_config.TextColumn(
+                "exact value",
+                width=350,
+            ),
+        },
+    )
 
 st.subheader("Check")
 st.write(f"Decimal value of $\\sqrt{{a}}$: `{math.sqrt(float(a)):.14f}`")
