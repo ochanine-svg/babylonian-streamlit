@@ -15,7 +15,7 @@ st.latex(r"x_{n+1}=\frac12\left(x_n+\frac{a}{x_n}\right)")
 
 st.write("The sequence should approach $\\sqrt{a}$.")
 
-def fraction_is_short_enough(frac, max_digits=45):
+def fraction_is_short_enough(frac, max_digits=40):
     numerator_digits = int(frac.numerator.bit_length() * math.log10(2)) + 1
     denominator_digits = int(frac.denominator.bit_length() * math.log10(2)) + 1
     return numerator_digits + denominator_digits <= max_digits
