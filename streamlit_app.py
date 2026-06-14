@@ -17,8 +17,8 @@ st.write("The sequence should approach $\\sqrt{a}$.")
 
 
 
-def fraction_is_short_enough(frac, max__chars):
-    return len(str(frac)) <= max_chars
+def fraction_is_short_enough(frac, max_fraction_chars):
+    return len(str(frac)) <= max_fraction_chars
 
 def parse_a(a_string):
     a_string = a_string.strip()
@@ -182,6 +182,7 @@ rows = compute_iterations(
     x0,
     use_fractions,
     number_of_iterations,
+    max_fraction_chars
     
 )
 
