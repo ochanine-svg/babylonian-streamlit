@@ -107,10 +107,10 @@ def compute_iterations(a, x, use_fractions, number_of_iterations,max_fraction_ch
             if fraction_is_short_enough(x,max_fraction_chars):
                 rows.append(
                     {
-                        "n": k,
-                        "exact value": str(x),
-                        "decimal approximation": f"{float(x):.14f}",
-                        "mode": "fraction",
+                    "n": k,
+                    "exact value": str(x),
+                    "decimal approximation": f"{float(x):.14f}",
+                    "mode": "fraction",
                     }
                 )
             else:
@@ -119,21 +119,21 @@ def compute_iterations(a, x, use_fractions, number_of_iterations,max_fraction_ch
                 current_mode = False
                 rows.append(
                     {
-                        "n": k,
-                        "exact value": "",
-                        "decimal approximation": f"{x:.14f}",
-                        "mode": "switched to decimal",
-                    }
+                    "n": k,
+                    "exact value": str(x),
+                    "decimal approximation": f"{float(x):.14f}",
+                    "mode": "fraction",
+                }
                 )
 
         else:
             x = 0.5 * (x + a / x)
             rows.append(
                 {
-                    "n": k,
-                    "exact value": "",
-                    "decimal approximation": f"{x:.14f}",
-                    "mode": "decimal",
+                "n": k,
+                "exact value": str(x),
+                "decimal approximation": f"{float(x):.14f}",
+                "mode": "fraction",
                 }
             )
 
