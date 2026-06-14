@@ -104,7 +104,7 @@ def compute_iterations(a, x, use_fractions, number_of_iterations):
         if current_mode:
             x = Fraction(1, 2) * (x + a / x)
 
-            if fraction_is_short_enough(x, max_fraction_digits):
+            if fraction_is_short_enough(x):
                 rows.append(
                     {
                         "n": k,
