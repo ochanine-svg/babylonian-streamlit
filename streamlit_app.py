@@ -17,7 +17,7 @@ st.write("The sequence should approach $\\sqrt{a}$.")
 
 
 def fraction_is_short_enough(frac, max_chars=38):
-return len(str(frac)) <= max_chars
+    return len(str(frac)) <= max_chars
 
 def parse_a(a_string):
     a_string = a_string.strip()
