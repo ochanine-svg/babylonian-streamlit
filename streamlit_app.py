@@ -16,9 +16,9 @@ st.latex(r"x_{n+1}=\frac12\left(x_n+\frac{a}{x_n}\right)")
 st.write("The sequence should approach $\\sqrt{a}$.")
 
 
-
 def fraction_is_short_enough(frac, max_fraction_chars):
     return len(str(frac)) <= max_fraction_chars
+
 
 def parse_a(a_string):
     a_string = a_string.strip()
@@ -33,7 +33,6 @@ def parse_a(a_string):
             if a <= 0:
                 return None, None, "a has to be positive."
 
-            # Fraction mode is still possible.
             return a, True, None
 
         a_float = float(a_string)
@@ -42,10 +41,8 @@ def parse_a(a_string):
             return None, None, "a has to be positive."
 
         if a_float.is_integer():
-            # Treat whole-number inputs exactly.
             return Fraction(int(a_float)), True, None
 
-        # Decimal a forces decimal mode.
         return a_float, False, None
 
     except ValueError:
@@ -53,6 +50,7 @@ def parse_a(a_string):
 
     except ZeroDivisionError:
         return None, None, "A fraction cannot have 0 in the denominator."
+
 
 def parse_x0(x0_string, force_float_mode):
     x0_string = x0_string.strip()
@@ -96,7 +94,8 @@ def parse_x0(x0_string, force_float_mode):
     except ZeroDivisionError:
         return None, None, "A fraction cannot have 0 in the denominator."
 
-def compute_iterations(a, x, use_fractions, number_of_iterations,max_fraction_chars):
+
+def compute_iterations(a, x, use_fractions, number_of_iterations, max_fraction_chars):
     rows = []
     current_mode = use_fractions
 
@@ -104,13 +103,13 @@ def compute_iterations(a, x, use_fractions, number_of_iterations,max_fraction_ch
         if current_mode:
             x = Fraction(1, 2) * (x + a / x)
 
-            if fraction_is_short_enough(x,max_fraction_chars):
+            if fraction_is_short_enough(x, max_fraction_chars):
                 rows.append(
                     {
-                    "n": k,
-                    "exact value": str(x),
-                    "decimal approximation": f"{float(x):.14f}",
-                    "mode": "fraction",
+                        "n": k,
+                        "decimal approximation": f"{float(x):.14f}",
+                        "exact value": str(x),
+                        "mode": "fraction",
                     }
                 )
             else:
@@ -119,32 +118,33 @@ def compute_iterations(a, x, use_fractions, number_of_iterations,max_fraction_ch
                 current_mode = False
                 rows.append(
                     {
-                    "n": k,
-                    "exact value": str(x),
-                    "decimal approximation": f"{float(x):.14f}",
-                    "mode": "fraction",
-                }
+                        "n": k,
+                        "decimal approximation": f"{x:.14f}",
+                        "exact value": "",
+                        "mode": "decimal",
+                    }
                 )
 
         else:
             x = 0.5 * (x + a / x)
             rows.append(
                 {
-                "n": k,
-                "exact value": str(x),
-                "decimal approximation": f"{float(x):.14f}",
-                "mode": "fraction",
+                    "n": k,
+                    "decimal approximation": f"{x:.14f}",
+                    "exact value": "",
+                    "mode": "decimal",
                 }
             )
 
     return rows
+
 
 with st.sidebar:
     st.header("Inputs")
     a_string = st.text_input("a", value="5")
     x0_string = st.text_input("x0", value="5/2")
     number_of_iterations = st.slider("Number of iterations", 1, 50, 10)
-    
+
 
 a, a_can_use_fractions, a_error = parse_a(a_string)
 
@@ -167,10 +167,10 @@ if use_fractions:
     st.info("Treating a and x0 as fractions.")
 else:
     st.info("Using decimal/float mode.")
-    
+
 st.subheader("Iterations")
 
-phone_friendly = st.checkbox("Phone-friendly display. ", value=True)
+phone_friendly = st.checkbox("Phone-friendly display.", value=True)
 
 if phone_friendly:
     max_fraction_chars = 34
@@ -182,20 +182,19 @@ rows = compute_iterations(
     x0,
     use_fractions,
     number_of_iterations,
-    max_fraction_chars
-    
+    max_fraction_chars,
 )
-
 
 if phone_friendly:
     for row in rows:
         st.markdown(f"**x_{row['n']}**")
 
+        st.write(f"Decimal approximation: `{row['decimal approximation']}`")
+
         if row["exact value"]:
             st.write("Exact value:")
             st.code(row["exact value"])
 
-        st.write(f"Decimal approximation: `{row['decimal approximation']}`")
         st.caption(f"Mode: {row['mode']}")
         st.divider()
 
@@ -205,6 +204,10 @@ else:
         hide_index=True,
         width="stretch",
         column_config={
+            "decimal approximation": st.column_config.TextColumn(
+                "decimal approximation",
+                width=180,
+            ),
             "exact value": st.column_config.TextColumn(
                 "exact value",
                 width=350,
