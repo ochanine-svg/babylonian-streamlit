@@ -15,8 +15,12 @@ st.latex(r"x_{n+1}=\frac12\left(x_n+\frac{a}{x_n}\right)")
 
 st.write("The sequence should approach $\\sqrt{a}$.")
 
+if phone_friendly:
+    max_fraction_chars = 34
+else:
+    max_fraction_chars = 42
 
-def fraction_is_short_enough(frac, max_chars=42):
+def fraction_is_short_enough(frac, max__fraction_chars):
     return len(str(frac)) <= max_chars
 
 def parse_a(a_string):
