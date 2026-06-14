@@ -141,7 +141,7 @@ def compute_iterations(a, x, use_fractions, number_of_iterations):
 with st.sidebar:
     st.header("Inputs")
     a_string = st.text_input("a", value="5")
-    x0_string = st.text_input("x0", value="1")
+    x0_string = st.text_input("x0", value="2.5")
     number_of_iterations = st.slider("Number of iterations", 1, 50, 10)
     
 
