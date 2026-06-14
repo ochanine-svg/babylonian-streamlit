@@ -15,12 +15,9 @@ st.latex(r"x_{n+1}=\frac12\left(x_n+\frac{a}{x_n}\right)")
 
 st.write("The sequence should approach $\\sqrt{a}$.")
 
-if phone_friendly:
-    max_fraction_chars = 34
-else:
-    max_fraction_chars = 42
 
-def fraction_is_short_enough(frac, max__fraction_chars):
+
+def fraction_is_short_enough(frac, max__chars):
     return len(str(frac)) <= max_chars
 
 def parse_a(a_string):
@@ -99,7 +96,7 @@ def parse_x0(x0_string, force_float_mode):
     except ZeroDivisionError:
         return None, None, "A fraction cannot have 0 in the denominator."
 
-def compute_iterations(a, x, use_fractions, number_of_iterations):
+def compute_iterations(a, x, use_fractions, number_of_iterations,max_fraction_chars):
     rows = []
     current_mode = use_fractions
 
@@ -107,7 +104,7 @@ def compute_iterations(a, x, use_fractions, number_of_iterations):
         if current_mode:
             x = Fraction(1, 2) * (x + a / x)
 
-            if fraction_is_short_enough(x):
+            if fraction_is_short_enough(x,max_fraction_chars):
                 rows.append(
                     {
                         "n": k,
@@ -170,6 +167,15 @@ if use_fractions:
     st.info("Treating a and x0 as fractions.")
 else:
     st.info("Using decimal/float mode.")
+    
+st.subheader("Iterations")
+
+phone_friendly = st.checkbox("Phone-friendly display. ", value=True)
+
+if phone_friendly:
+    max_fraction_chars = 34
+else:
+    max_fraction_chars = 42
 
 rows = compute_iterations(
     a,
@@ -179,9 +185,6 @@ rows = compute_iterations(
     
 )
 
-st.subheader("Iterations")
-
-phone_friendly = st.checkbox("Phone-friendly display. ", value=True)
 
 if phone_friendly:
     for row in rows:
