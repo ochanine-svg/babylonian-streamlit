@@ -177,7 +177,18 @@ rows = compute_iterations(
 )
 
 st.subheader("Iterations")
-st.dataframe(rows, use_container_width=True, hide_index=True)
+
+st.dataframe(
+    rows,
+    hide_index=True,
+    use_container_width=True,
+    column_config={
+        "exact value": st.column_config.TextColumn(
+            "exact value",
+            width=350,
+        ),
+    },
+)
 
 st.subheader("Check")
 st.write(f"Decimal value of $\\sqrt{{a}}$: `{math.sqrt(float(a)):.14f}`")
