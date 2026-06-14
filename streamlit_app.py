@@ -96,7 +96,7 @@ def parse_x0(x0_string, force_float_mode):
     except ZeroDivisionError:
         return None, None, "A fraction cannot have 0 in the denominator."
 
-def compute_iterations(a, x, use_fractions, number_of_iterations, max_fraction_digits):
+def compute_iterations(a, x, use_fractions, number_of_iterations):
     rows = []
     current_mode = use_fractions
 
