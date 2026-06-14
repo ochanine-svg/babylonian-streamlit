@@ -185,7 +185,7 @@ st.dataframe(
     column_config={
         "exact value": st.column_config.TextColumn(
             "exact value",
-            width=100,
+            width=200,
         ),
     },
 )
