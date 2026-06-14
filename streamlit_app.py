@@ -144,7 +144,7 @@ with st.sidebar:
     a_string = st.text_input("a", value="2")
     x0_string = st.text_input("x0", value="1")
     number_of_iterations = st.slider("Number of iterations", 1, 50, 10)
-    max_fraction_digits = st.slider("Max fraction length before switching to decimals", 20, 200, 60)
+    
 
 a, a_can_use_fractions, a_error = parse_a(a_string)
 
