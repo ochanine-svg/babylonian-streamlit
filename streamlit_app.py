@@ -178,7 +178,7 @@ rows = compute_iterations(
 
 st.subheader("Iterations")
 
-phone_friendly = st.checkbox("Phone-friendly display", value=True)
+phone_friendly = st.checkbox("Phone-friendly display. Uncheck if viewing on a computer.", value=True)
 
 if phone_friendly:
     for row in rows:
