@@ -37,7 +37,7 @@ st.write(
 
 a_string = st.text_input("a", value="5")
 x0_string = st.text_input("x0", value="5/2")
-number_of_iterations = st.slider("Number of iterations", 1, 50, 5)
+number_of_iterations = st.slider("Number of terms", 1, 50, 5)
 
 
 def fraction_is_short_enough(frac, max_chars=50):
