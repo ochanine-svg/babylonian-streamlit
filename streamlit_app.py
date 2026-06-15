@@ -4,8 +4,7 @@ import math
 
 st.markdown("""
 <style>
-[data-testid="stSlider"] [data-testid="stThumbValue"],
-[data-testid="stSlider"] [data-testid="stThumbValue"] * {
+[data-testid="stSlider"] div {
     color: black !important;
 }
 </style>
