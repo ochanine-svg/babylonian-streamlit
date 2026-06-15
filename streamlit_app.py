@@ -69,9 +69,11 @@ html, body, [class*="css"] {
 a_string = st.text_input("Enter a positive number $a$", value="5")
 
 x0_string = st.text_input(
-    "Enter an initial guess for the square root of $a$ (try terrible inital guesses as well)",
+    "Enter an initial guess for the square root of $a$",
     value="5/2"
 )
+
+st.caption("Try a close guess and a terrible guess.")
 
 st.write("This app repeatedly updates the value of $x$ using")
 
@@ -79,7 +81,14 @@ st.latex(r"\frac12\left(x+\frac{a}{x}\right)")
 
 number_of_iterations = st.slider("Number of iterations", 1, 50, 5)
 
-
+st.markdown(
+    """
+    <p style="font-size:20px; font-weight:bold;">
+    Results appear below.
+    </p>
+    """,
+    unsafe_allow_html=True,
+)
 
 
 def fraction_is_short_enough(frac, max_chars=50):
