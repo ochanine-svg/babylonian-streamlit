@@ -69,7 +69,7 @@ html, body, [class*="css"] {
 </style>
 """, unsafe_allow_html=True)
 
-st.title("The Babylonian Method")
+
 
 a_string = st.text_input("Enter a positive number $a$", value="5")
 
