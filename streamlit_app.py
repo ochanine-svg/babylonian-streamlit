@@ -6,7 +6,7 @@ st.set_page_config(page_title="Babylonian Square Root", page_icon="√")
 
 st.title("The Babylonian Method")
 
-st.write("Enter a positive number $a$ and a positive starting guess $x_0$.")
+st.write("Enter a positive number $a$ and a positive starting guess $x_0$. You can enter close and far guess for the square root to see how fast the sequence converges to the root.")
 
 st.latex(r"x_{n+1}=\frac12\left(x_n+\frac{a}{x_n}\right)")
 
