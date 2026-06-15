@@ -4,20 +4,21 @@ import math
 
 st.set_page_config(page_title="Babylonian Square Root", page_icon="√")
 
-st.title("Babylonian Method for Square Roots")
+st.title("The Babylonian Method")
 
 st.write(
-    "Enter a positive number $a$ and a positive starting guess $x_0$. "
-    "The app computes iterations of"
+    "Enter a positive number $a$ and a positive starting guess $x_0$."
 )
 
 st.latex(r"x_{n+1}=\frac12\left(x_n+\frac{a}{x_n}\right)")
 
-st.write("The sequence should approach $\\sqrt{a}$.")
+a_string = st.text_input("a", value="5")
+x0_string = st.text_input("x0", value="5/2")
+number_of_iterations = st.slider("Number of iterations", 1, 50, 5)
 
 
-def fraction_is_short_enough(frac, max_fraction_chars):
-    return len(str(frac)) <= max_fraction_chars
+def fraction_is_short_enough(frac, max_chars=50):
+    return len(str(frac)) <= max_chars
 
 
 def parse_a(a_string):
@@ -95,7 +96,7 @@ def parse_x0(x0_string, force_float_mode):
         return None, None, "A fraction cannot have 0 in the denominator."
 
 
-def compute_iterations(a, x, use_fractions, number_of_iterations, max_fraction_chars):
+def compute_iterations(a, x, use_fractions, number_of_iterations):
     rows = []
     current_mode = use_fractions
 
@@ -103,13 +104,12 @@ def compute_iterations(a, x, use_fractions, number_of_iterations, max_fraction_c
         if current_mode:
             x = Fraction(1, 2) * (x + a / x)
 
-            if fraction_is_short_enough(x, max_fraction_chars):
+            if fraction_is_short_enough(x):
                 rows.append(
                     {
                         "n": k,
                         "decimal approximation": f"{float(x):.14f}",
                         "exact value": str(x),
-                        "mode": "fraction",
                     }
                 )
             else:
@@ -121,7 +121,6 @@ def compute_iterations(a, x, use_fractions, number_of_iterations, max_fraction_c
                         "n": k,
                         "decimal approximation": f"{x:.14f}",
                         "exact value": "",
-                        "mode": "decimal",
                     }
                 )
 
@@ -132,18 +131,10 @@ def compute_iterations(a, x, use_fractions, number_of_iterations, max_fraction_c
                     "n": k,
                     "decimal approximation": f"{x:.14f}",
                     "exact value": "",
-                    "mode": "decimal",
                 }
             )
 
     return rows
-
-
-with st.sidebar:
-    st.header("Inputs")
-    a_string = st.text_input("a", value="5")
-    x0_string = st.text_input("x0", value="5/2")
-    number_of_iterations = st.slider("Number of iterations", 1, 50, 10)
 
 
 a, a_can_use_fractions, a_error = parse_a(a_string)
@@ -163,57 +154,32 @@ if x0_error:
 
 use_fractions = a_can_use_fractions and x0_can_use_fractions
 
-if use_fractions:
-    st.info("Treating a and x0 as fractions.")
-else:
-    st.info("Using decimal/float mode.")
-
-st.subheader("Iterations")
-
-phone_friendly = st.checkbox("Phone-friendly display.", value=True)
-
-if phone_friendly:
-    max_fraction_chars = 34
-else:
-    max_fraction_chars = 42
-
 rows = compute_iterations(
     a,
     x0,
     use_fractions,
     number_of_iterations,
-    max_fraction_chars,
 )
 
-if phone_friendly:
-    for row in rows:
-        st.markdown(f"**x_{row['n']}**")
+st.subheader("Iterations")
 
-        st.write(f"Decimal approximation: `{row['decimal approximation']}`")
-
-        if row["exact value"]:
-            st.write("Exact value:")
-            st.code(row["exact value"])
-
-        st.caption(f"Mode: {row['mode']}")
-        st.divider()
-
-else:
-    st.dataframe(
-        rows,
-        hide_index=True,
-        width="stretch",
-        column_config={
-            "decimal approximation": st.column_config.TextColumn(
-                "decimal approximation",
-                width=180,
-            ),
-            "exact value": st.column_config.TextColumn(
-                "exact value",
-                width=350,
-            ),
-        },
-    )
+st.dataframe(
+    rows,
+    hide_index=True,
+    use_container_width=True,
+    column_config={
+        "n": st.column_config.NumberColumn("n", width="small"),
+        "decimal approximation": st.column_config.TextColumn(
+            "decimal approximation",
+            width="medium",
+        ),
+        "exact value": st.column_config.TextColumn(
+            "exact value",
+            width="large",
+        ),
+    },
+)
 
 st.subheader("Check")
-st.write(f"Decimal value of $\\sqrt{{a}}$: `{math.sqrt(float(a)):.14f}`")
+
+st.write(f"$\\sqrt{{a}} \\approx {math.sqrt(float(a)):.14f}$")
