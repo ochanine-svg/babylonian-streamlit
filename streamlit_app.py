@@ -24,13 +24,15 @@ st.title("The Babylonian Method")
 
 a_string = st.text_input("Enter a positive number $a$", value="5")
 x0_string = st.text_input("Enter a positive starting guess $x_0$ for the square root of $a$", value="5/2")
-number_of_iterations = st.slider("Number of iterations", 1, 50, 5)
+
 
 st. write("This app repeatedly updates the value of $x$ with the value of ")
 
 
 
 st.latex(r"\frac12\left(x+\frac{a}{x}\right)")
+
+number_of_iterations = st.slider("Number of iterations", 1, 50, 5)
 
 st.write(
     "Try both a close starting guess and a far starting guess for $x_0$. "
