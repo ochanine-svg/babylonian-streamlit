@@ -6,9 +6,7 @@ st.set_page_config(page_title="Babylonian Square Root", page_icon="√")
 
 st.title("The Babylonian Method")
 
-st.write(
-    "Enter a positive number $a$ and a positive starting guess $x_0$."
-)
+st.write("Enter a positive number $a$ and a positive starting guess $x_0$.")
 
 st.latex(r"x_{n+1}=\frac12\left(x_n+\frac{a}{x_n}\right)")
 
@@ -120,7 +118,7 @@ def compute_iterations(a, x, use_fractions, number_of_iterations):
                     {
                         "n": k,
                         "decimal approximation": f"{x:.14f}",
-                        "exact value": "",
+                        "exact value": "fraction too long to display",
                     }
                 )
 
@@ -168,7 +166,7 @@ st.dataframe(
     hide_index=True,
     use_container_width=True,
     column_config={
-        "n": st.column_config.NumberColumn("n", width=20),
+        "n": st.column_config.NumberColumn("n", width=40),
         "decimal approximation": st.column_config.TextColumn(
             "decimal approximation",
             width="medium",
