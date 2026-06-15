@@ -2,6 +2,20 @@ import streamlit as st
 from fractions import Fraction
 import math
 
+st.markdown(
+    """
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
+
+    html, body, [class*="css"] {
+        font-family: 'Merriweather', serif;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
 st.set_page_config(page_title="Babylonian Square Root", page_icon="√")
 
 st.title("The Babylonian Method")
