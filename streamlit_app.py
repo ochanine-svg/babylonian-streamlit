@@ -22,7 +22,7 @@ st.title("The Babylonian Method")
 
 st.write("Enter a positive number $a$ and a positive starting guess $x_0$ for $\\sqrt{a}$.")
 
-st. write("The app computes iterations of:")
+st. write("This app computes terms of the sequence")
 
 
 
