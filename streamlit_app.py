@@ -30,6 +30,11 @@ html, body, [class*="css"] {
     font-size: 18px !important;
 }
 
+/* Slider color */
+.stSlider [data-baseweb="slider"] div {
+    background-color: #2ecc71 !important;
+}
+
 /* Dataframe text */
 [data-testid="stDataFrame"] * {
     font-size: 18px !important;
