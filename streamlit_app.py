@@ -86,7 +86,7 @@ st.write("This app repeatedly updates the value of $x$ using")
 
 st.latex(r"\frac12\left(x+\frac{a}{x}\right)")
 
-number_of_iterations = st.slider("Number of iterations", 1, 50, 5)
+
 
 st.markdown(
     """
@@ -97,7 +97,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-
+number_of_iterations = st.slider("Number of iterations", 1, 50, 5)
 def fraction_is_short_enough(frac, max_chars=50):
     return len(str(frac)) <= max_chars
 
