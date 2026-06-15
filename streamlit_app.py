@@ -13,29 +13,26 @@ html, body, [class*="css"] {
     font-size: 18px;
 }
 
-/* Text inside input boxes */
 .stTextInput input {
     font-size: 18px !important;
 }
 
-/* Text input labels */
 [data-testid="stTextInput"] label,
 [data-testid="stTextInput"] label p {
     font-size: 18px !important;
 }
 
-/* Slider label */
 [data-testid="stSlider"] label,
 [data-testid="stSlider"] label p {
     font-size: 18px !important;
 }
 
-/* Slider color */
-.stSlider [data-baseweb="slider"] div {
+/* Green draggable slider circle only */
+.stSlider [role="slider"] {
     background-color: #2ecc71 !important;
+    border-color: #2ecc71 !important;
 }
 
-/* Dataframe text */
 [data-testid="stDataFrame"] * {
     font-size: 18px !important;
 }
