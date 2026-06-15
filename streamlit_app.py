@@ -145,7 +145,7 @@ def compute_iterations(a, x, use_fractions, number_of_iterations):
                     {
                         "n": k,
                         "decimal approximation": f"{x:.14f}",
-                        "exact value": "fraction too long. no longer displaying.",
+                        "exact value": "fraction too long--no longer displaying",
                     }
                 )
 
