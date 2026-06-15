@@ -12,7 +12,10 @@ st.write("Enter a positive number $a$ and a positive starting guess $x_0$.")
 
 st.latex(r"x_{n+1}=\frac12\left(x_n+\frac{a}{x_n}\right)")
 
-st.write("Enter close and far guesses for the square root to see how fast convergence is.")
+st.write("Try both a close starting guess and a far starting guess for x₀.
+Notice how rapidly the sequence approaches √a.")
+
+
 
 a_string = st.text_input("a", value="5")
 x0_string = st.text_input("x0", value="5/2")
@@ -185,3 +188,5 @@ st.dataframe(
 st.subheader("Check")
 
 st.write(f"$\\sqrt{{a}} \\approx {math.sqrt(float(a)):.14f}$")
+
+
