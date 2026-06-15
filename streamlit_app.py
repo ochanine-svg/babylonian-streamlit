@@ -91,7 +91,7 @@ st.latex(r"\frac12\left(x+\frac{a}{x}\right)")
 st.markdown(
     """
     <p style="font-size:20px; font-weight:bold;">
-    Results appear below. You can adjust the adjust the slider for more rows of results.
+    Results appear below. You can adjust the adjust the slider for more rows.
     </p>
     """,
     unsafe_allow_html=True,
