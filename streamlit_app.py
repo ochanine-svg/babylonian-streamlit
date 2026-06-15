@@ -2,19 +2,7 @@ import streamlit as st
 from fractions import Fraction
 import math
 
-st.markdown("""
-<style>
-[data-testid="stSlider"] div {
-    color: black !important;
-}
 
-[data-testid="stSlider"] [data-testid="stTickBar"] *,
-[data-testid="stSlider"] [data-testid="stSliderTickBar"] *,
-[data-testid="stSlider"] [class*="Tick"] * {
-    color: white !important;
-}
-</style>
-""", unsafe_allow_html=True)
 
 st.markdown("""
 <style>
