@@ -27,10 +27,20 @@ html, body, [class*="css"] {
     font-size: 18px !important;
 }
 
-/* Green draggable slider circle only */
-.stSlider [role="slider"] {
+/* Slider knob */
+[data-testid="stSlider"] [role="slider"] {
     background-color: #2ecc71 !important;
     border-color: #2ecc71 !important;
+}
+
+/* Slider value label */
+[data-testid="stSlider"] [data-testid="stThumbValue"] {
+    color: #2ecc71 !important;
+}
+
+/* Filled slider track */
+[data-testid="stSlider"] [data-baseweb="slider"] > div > div {
+    background-color: #2ecc71 !important;
 }
 
 [data-testid="stDataFrame"] * {
