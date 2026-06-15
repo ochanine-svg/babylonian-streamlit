@@ -4,8 +4,6 @@ import math
 
 st.markdown("""
 <style>
-
-
 #MainMenu {
     visibility: hidden;
 }
@@ -65,7 +63,6 @@ html, body, [class*="css"] {
 """, unsafe_allow_html=True)
 
 
-
 st.write("This app computes successive updates of the value of $x$ using")
 
 st.latex(r"\frac12\left(x+\frac{a}{x}\right)")
@@ -73,22 +70,17 @@ st.latex(r"\frac12\left(x+\frac{a}{x}\right)")
 st.write("The value of $x$ converges fast to $\sqrt{a}$.")
 
 
-
-
 a_string = st.text_input("Enter a positive number $a$", value="5")
 
 x0_string = st.text_input(
-    "Enter an initial guess for the square root of $a$. This is the inital value of $x$.",
+    "Enter an initial guess for the square root of $a$. This is the initial value of $x$.",
     value="5/2"
 )
-
-
-
 
 st.markdown(
     """
     <p style="font-size:20px; font-weight:bold;">
-    Results appear in the table below. 
+    Results appear in the table below.
     </p>
     """,
     unsafe_allow_html=True,
@@ -104,6 +96,8 @@ st.markdown(
 )
 
 number_of_iterations = st.slider("# rows", 1, 50, 5)
+
+
 def fraction_is_short_enough(frac, max_chars=50):
     return len(str(frac)) <= max_chars
 
@@ -185,18 +179,17 @@ def parse_x0(x0_string, force_float_mode):
 
 def compute_iterations(a, x, use_fractions, number_of_iterations):
     rows = []
-
-    x=x0
-
-    rows.append({
-    "n": 0,
-    "decimal approximation": float(x),
-    "fraction": str(x) if fraction_is_short_enough(x, max_fraction_chars) else "fraction too long to display"
-    })
-    
     current_mode = use_fractions
 
-    for k in range(1, number_of_iterations + 1):
+    rows.append(
+        {
+            "n": 0,
+            "decimal approximation": f"{float(x):.14f}",
+            "exact value of x": str(x) if current_mode else "",
+        }
+    )
+
+    for k in range(1, number_of_iterations):
         if current_mode:
             x = Fraction(1, 2) * (x + a / x)
 
@@ -259,11 +252,7 @@ rows = compute_iterations(
 
 st.subheader("Iterations")
 
-st.table(
-    rows
-)
-
-
+st.table(rows)
 
 st.subheader("Check")
 
