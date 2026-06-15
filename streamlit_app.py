@@ -74,7 +74,7 @@ html, body, [class*="css"] {
 a_string = st.text_input("Enter a positive number $a$", value="5")
 
 x0_string = st.text_input(
-    "Enter a positive starting guess $x_0$ for the square root of $a$. Try both a close starting guess and a far starting guess. Notice how rapidly the values approach $\\sqrt{a}$.",
+    "Enter a positive starting guess $x_0$ for the square root of $a$",
     value="5/2"
 )
 
@@ -249,6 +249,8 @@ st.dataframe(
         ),
     },
 )
+
+st.write("Try both a close starting guess and a far starting guess. Notice how rapidly the values approach $\\sqrt{a}$.")
 
 st.subheader("Check")
 
