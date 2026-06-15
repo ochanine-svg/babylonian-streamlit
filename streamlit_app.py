@@ -64,14 +64,7 @@ html, body, [class*="css"] {
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown(
-    """
-    <p style="font-size:24px;">
-    Enter inputs below, then scroll down to see the results table.
-    </p>
-    """,
-    unsafe_allow_html=True,
-)
+
 
 a_string = st.text_input("Enter a positive number $a$", value="5")
 
