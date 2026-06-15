@@ -68,20 +68,22 @@ st.write("This app repeatedly updates the value of $x$ using")
 
 st.latex(r"\frac12\left(x+\frac{a}{x}\right)")
 
+st.write("The value of $x$ converges to $\sqrt{a}$.")
+
 
 
 
 a_string = st.text_input("Enter a positive number $a$", value="5")
 
 x0_string = st.text_input(
-    "Enter an initial value of $x$",
+    "Enter an initial guess for the square root of $a$. This is the inital value of $x$.",
     value="5/2"
 )
 
 st.markdown(
     """
     <p style="font-size:18px;">
-    (Try both a close guess and a terrible guess to see fast convergence to the square root of $a$.)
+    (Try both a close guess and a terrible guess to see fast convergence.)
     </p>
     """,
     unsafe_allow_html=True,
