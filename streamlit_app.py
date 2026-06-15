@@ -72,7 +72,7 @@ html, body, [class*="css"] {
 st.markdown(
     """
     <p style="font-size:24px;">
-    Enter values below, then scroll down to see the approximations.
+    Enter inputs below, then scroll down to see the results table.
     </p>
     """,
     unsafe_allow_html=True,
