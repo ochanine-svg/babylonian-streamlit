@@ -97,7 +97,7 @@ st.markdown(
 st.markdown(
     """
     <p style="font-size:18px;">
-    Try both a decent guess for the square root and a terrible guess to see fast convergence. You may have to adjust the slider to see convergence.
+    Try both a decent guess for the square root and a terrible guess to explore the fast convergence.
     </p>
     """,
     unsafe_allow_html=True,
