@@ -168,7 +168,7 @@ st.dataframe(
     hide_index=True,
     use_container_width=True,
     column_config={
-        "n": st.column_config.NumberColumn("n", width="small"),
+        "n": st.column_config.NumberColumn("n", width=40),
         "decimal approximation": st.column_config.TextColumn(
             "decimal approximation",
             width="medium",
