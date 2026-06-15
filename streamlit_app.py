@@ -6,9 +6,23 @@ import math
 
 st.markdown("""
 <style>
-
-
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
+
+.block-container {
+    padding-top: 0.75rem !important;
+}
+
+#MainMenu {
+    visibility: hidden;
+}
+
+footer {
+    visibility: hidden;
+}
+
+header {
+    visibility: hidden;
+}
 
 html, body, [class*="css"] {
     font-family: 'Merriweather', serif;
@@ -29,18 +43,15 @@ html, body, [class*="css"] {
     font-size: 18px !important;
 }
 
-/* Slider knob */
 [data-testid="stSlider"] [role="slider"] {
     background-color: #2ecc71 !important;
     border-color: #2ecc71 !important;
 }
 
-/* Slider value label */
 [data-testid="stSlider"] [data-testid="stThumbValue"] {
     color: #2ecc71 !important;
 }
 
-/* Filled slider track */
 [data-testid="stSlider"] [data-baseweb="slider"] > div > div {
     background-color: #2ecc71 !important;
 }
