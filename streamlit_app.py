@@ -6,9 +6,6 @@ import math
 
 st.markdown("""
 <style>
-.block-container {
-    padding-top: 0.75rem !important;
-}
 
 
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
