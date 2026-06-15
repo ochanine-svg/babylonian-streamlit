@@ -2,7 +2,8 @@ import streamlit as st
 from fractions import Fraction
 import math
 
-
+st.markdown("""
+<style>
 
 
 #MainMenu {
