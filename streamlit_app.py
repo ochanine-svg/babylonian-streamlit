@@ -80,14 +80,7 @@ st.latex(r"\frac12\left(x+\frac{a}{x}\right)")
 number_of_iterations = st.slider("Number of iterations", 1, 50, 5)
 
 
-st.markdown(
-    """
-    <p style="font-size:24px; font-weight:bold;">
-    Scroll down to see the results table.
-    </p>
-    """,
-    unsafe_allow_html=True,
-)
+
 
 def fraction_is_short_enough(frac, max_chars=50):
     return len(str(frac)) <= max_chars
