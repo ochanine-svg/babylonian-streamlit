@@ -73,7 +73,14 @@ x0_string = st.text_input(
     value="5/2"
 )
 
-st.caption("Try a close guess and a terrible guess.")
+st.markdown(
+    """
+    <p style="font-size:18px;">
+    Try a close guess and a terrible guess.
+    </p>
+    """,
+    unsafe_allow_html=True,
+)
 
 st.write("This app repeatedly updates the value of $x$ using")
 
