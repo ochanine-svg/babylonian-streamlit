@@ -64,6 +64,11 @@ html, body, [class*="css"] {
 </style>
 """, unsafe_allow_html=True)
 
+st.write("This app repeatedly updates the value of $x$ using")
+
+st.latex(r"\frac12\left(x+\frac{a}{x}\right)")
+
+
 
 
 a_string = st.text_input("Enter a positive number $a$", value="5")
@@ -81,11 +86,6 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
-
-st.write("This app repeatedly updates the value of $x$ using")
-
-st.latex(r"\frac12\left(x+\frac{a}{x}\right)")
-
 
 
 st.markdown(
