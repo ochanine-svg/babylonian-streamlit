@@ -20,7 +20,9 @@ st.set_page_config(page_title="Babylonian Square Root", page_icon="√")
 
 st.title("The Babylonian Method")
 
-st.write("Enter a positive number $a$ and a positive starting guess $x_0$.")
+st.write("Enter a positive number $a$ and a positive starting guess $x_0$ for $\\sqrt{a}$.")
+
+st. write("The app computes iterations of:")
 
 
 
