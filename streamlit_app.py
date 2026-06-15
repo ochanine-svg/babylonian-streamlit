@@ -26,7 +26,7 @@ st. write("This app repeatedly updates the value of x with the value of ")
 
 
 
-st.latex(r"x=\frac12\left(x+\frac{a}{x}\right)")
+st.latex(r"\frac12\left(x+\frac{a}{x}\right)")
 
 st.write(
     "Try both a close starting guess and a far starting guess for $x_0$. "
