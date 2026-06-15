@@ -2,7 +2,7 @@ import streamlit as st
 from fractions import Fraction
 import math
 
-
+st.set_page_config(page_title="Babylonian Square Root", page_icon="√")
 
 st.markdown("""
 <style>
@@ -20,8 +20,16 @@ footer {
     visibility: hidden;
 }
 
-header {
-    visibility: hidden;
+header[data-testid="stHeader"] {
+    display: none !important;
+}
+
+div[data-testid="stToolbar"] {
+    display: none !important;
+}
+
+div[data-testid="stDecoration"] {
+    display: none !important;
 }
 
 html, body, [class*="css"] {
@@ -62,9 +70,10 @@ html, body, [class*="css"] {
 </style>
 """, unsafe_allow_html=True)
 
-
+st.title("The Babylonian Method")
 
 a_string = st.text_input("Enter a positive number $a$", value="5")
+
 x0_string = st.text_input(
     "Enter a positive starting guess $x_0$ for the square root of $a$",
     value="5/2"
@@ -244,8 +253,6 @@ st.dataframe(
         ),
     },
 )
-
-
 
 st.subheader("Check")
 
