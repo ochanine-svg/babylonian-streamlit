@@ -5,6 +5,11 @@ import math
 st.set_page_config(page_title="Babylonian Square Root", page_icon="√")
 
 st.markdown("""
+
+.block-container {
+    padding-top: 0.75rem !important;
+}
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
 
