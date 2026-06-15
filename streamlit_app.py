@@ -3,13 +3,7 @@ from fractions import Fraction
 import math
 
 
-st.markdown("""
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
 
-.block-container {
-    padding-top: 0.75rem !important;
-}
 
 #MainMenu {
     visibility: hidden;
