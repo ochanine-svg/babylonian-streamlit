@@ -74,7 +74,7 @@ html, body, [class*="css"] {
 a_string = st.text_input("Enter a positive number $a$", value="5")
 
 x0_string = st.text_input(
-    "Enter a positive starting guess $x_0$ for the square root of $a$ (try terrible inital guesses as well)",
+    "Enter an initial guess for the square root of $a$ (try terrible inital guesses as well)",
     value="5/2"
 )
 
