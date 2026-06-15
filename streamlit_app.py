@@ -4,6 +4,15 @@ import math
 
 st.markdown("""
 <style>
+[data-testid="stSlider"] [data-testid="stThumbValue"] {
+    display: none !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+st.markdown("""
+<style>
 #MainMenu {
     visibility: hidden;
 }
