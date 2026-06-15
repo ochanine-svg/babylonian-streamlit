@@ -233,21 +233,8 @@ rows = compute_iterations(
 
 st.subheader("Iterations")
 
-st.dataframe(
-    rows,
-    hide_index=True,
-    use_container_width=True,
-    column_config={
-        "n": st.column_config.NumberColumn("n", width=20),
-        "decimal approximation": st.column_config.TextColumn(
-            "decimal approximation",
-            width=150,
-        ),
-        "exact value": st.column_config.TextColumn(
-            "exact value",
-            width="large",
-        ),
-    },
+st.table(
+    rows
 )
 
 
