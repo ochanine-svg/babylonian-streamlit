@@ -4,14 +4,16 @@ import math
 
 st.markdown("""
 <style>
-[data-testid="stSlider"] [data-testid="stThumbValue"],
-[data-testid="stSlider"] div[class*="ThumbValue"],
-[data-testid="stSlider"] div[class*="thumbValue"] {
+.stSlider [data-baseweb="slider"] {
+    --slider-color: black !important;
+}
+
+.stSlider [role="slider"] {
     background-color: black !important;
-    color: white !important;
+    border-color: black !important;
 }
 </style>
-""", unsafe_allow_html=True)
+""", unsafe_allow_html=True))
 
 st.markdown("""
 <style>
