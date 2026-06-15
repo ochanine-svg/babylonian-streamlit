@@ -5,11 +5,14 @@ import math
 st.markdown("""
 <style>
 [data-testid="stSlider"] [data-testid="stThumbValue"] {
+    visibility: hidden !important;
+}
+
+[data-testid="stSlider"] div[role="slider"] + div {
     display: none !important;
 }
 </style>
 """, unsafe_allow_html=True)
-
 
 st.markdown("""
 <style>
