@@ -91,7 +91,7 @@ number_of_iterations = st.slider("Number of iterations", 1, 50, 5)
 st.markdown(
     """
     <p style="font-size:20px; font-weight:bold;">
-    Results appear below. You can adjust the number of iterations for more rows or results.
+    Results appear below. You can adjust the adjust the slider for more rows of results.
     </p>
     """,
     unsafe_allow_html=True,
