@@ -2,58 +2,50 @@ import streamlit as st
 from fractions import Fraction
 import math
 
-st.markdown(
-    """
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
-
-    html, body, [class*="css"] {
-        font-family: 'Merriweather', serif;
-        font-size: 18px
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+st.set_page_config(page_title="Babylonian Square Root", page_icon="√")
 
 st.markdown("""
 <style>
-/* Input boxes */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'Merriweather', serif;
+    font-size: 18px;
+}
+
+/* Text inside input boxes */
 .stTextInput input {
-    font-size: 18px;
+    font-size: 18px !important;
 }
 
-/* Input labels */
-.stTextInput label {
-    font-size: 18px;
+/* Text input labels */
+[data-testid="stTextInput"] label,
+[data-testid="stTextInput"] label p {
+    font-size: 18px !important;
 }
 
-/* Table text */
-[data-testid="stTable"] {
-    font-size: 18px;
+/* Slider label */
+[data-testid="stSlider"] label,
+[data-testid="stSlider"] label p {
+    font-size: 18px !important;
 }
 
-/* Dataframe/table cells */
-[data-testid="stDataFrame"] {
-    font-size: 18px;
+/* Dataframe text */
+[data-testid="stDataFrame"] * {
+    font-size: 18px !important;
 }
 </style>
 """, unsafe_allow_html=True)
 
-
-st.set_page_config(page_title="Babylonian Square Root", page_icon="√")
-
 st.title("The Babylonian Method")
 
-
-
 a_string = st.text_input("Enter a positive number $a$", value="5")
-x0_string = st.text_input("Enter a positive starting guess $x_0$ for the square root of $a$", value="5/2")
+x0_string = st.text_input(
+    "Enter a positive starting guess $x_0$ for the square root of $a$",
+    value="5/2"
+)
 
-
-st. write("This app repeatedly updates the value of $x$ with the value of ")
-
-
+st.write("This app repeatedly updates the value of $x$ using")
 
 st.latex(r"\frac12\left(x+\frac{a}{x}\right)")
 
@@ -61,10 +53,8 @@ number_of_iterations = st.slider("Number of iterations", 1, 50, 5)
 
 st.write(
     "Try both a close starting guess and a far starting guess for $x_0$. "
-    "Notice how rapidly the sequence approaches $\\sqrt{a}$."
+    "Notice how rapidly the values approach $\\sqrt{a}$."
 )
-
-
 
 
 def fraction_is_short_enough(frac, max_chars=50):
@@ -170,7 +160,7 @@ def compute_iterations(a, x, use_fractions, number_of_iterations):
                     {
                         "n": k,
                         "decimal approximation": f"{x:.14f}",
-                        "exact value": "fraction too long/stop display",
+                        "exact value": "fraction too long to display",
                     }
                 )
 
@@ -233,5 +223,3 @@ st.dataframe(
 st.subheader("Check")
 
 st.write(f"$\\sqrt{{a}} \\approx {math.sqrt(float(a)):.14f}$")
-
-
