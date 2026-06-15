@@ -9,6 +9,7 @@ st.markdown(
 
     html, body, [class*="css"] {
         font-family: 'Merriweather', serif;
+        font-size: 18px
     }
     </style>
     """,
