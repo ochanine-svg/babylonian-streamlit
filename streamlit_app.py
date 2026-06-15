@@ -250,7 +250,7 @@ st.dataframe(
     },
 )
 
-st.write("Try both a close starting guess and a far starting guess. Notice how rapidly the values approach $\\sqrt{a}$.")
+
 
 st.subheader("Check")
 
