@@ -2,7 +2,7 @@ import streamlit as st
 from fractions import Fraction
 import math
 
-st.set_page_config(page_title="Babylonian Square Root", page_icon="√")
+
 
 st.markdown("""
 <style>
