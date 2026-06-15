@@ -16,6 +16,30 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+st.markdown("""
+<style>
+/* Input boxes */
+.stTextInput input {
+    font-size: 18px;
+}
+
+/* Input labels */
+.stTextInput label {
+    font-size: 18px;
+}
+
+/* Table text */
+[data-testid="stTable"] {
+    font-size: 18px;
+}
+
+/* Dataframe/table cells */
+[data-testid="stDataFrame"] {
+    font-size: 18px;
+}
+</style>
+""", unsafe_allow_html=True)
+
 
 st.set_page_config(page_title="Babylonian Square Root", page_icon="√")
 
