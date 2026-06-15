@@ -178,7 +178,7 @@ st.dataframe(
         "n": st.column_config.NumberColumn("n", width=20),
         "decimal approximation": st.column_config.TextColumn(
             "decimal approximation",
-            width=110,
+            width=150,
         ),
         "exact value": st.column_config.TextColumn(
             "exact value",
