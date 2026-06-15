@@ -82,20 +82,22 @@ x0_string = st.text_input(
     value="5/2"
 )
 
-st.markdown(
-    """
-    <p style="font-size:18px;">
-    (Try both a close guess and a terrible guess to see fast convergence.)
-    </p>
-    """,
-    unsafe_allow_html=True,
-)
+
 
 
 st.markdown(
     """
     <p style="font-size:20px; font-weight:bold;">
     Results appear in the table below. 
+    </p>
+    """,
+    unsafe_allow_html=True,
+)
+
+st.markdown(
+    """
+    <p style="font-size:18px;">
+    (Try both a close guess and a terrible guess to see fast convergence.)
     </p>
     """,
     unsafe_allow_html=True,
