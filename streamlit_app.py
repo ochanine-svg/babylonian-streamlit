@@ -56,18 +56,9 @@ html, body, [class*="css"] {
     font-size: 18px !important;
 }
 
-[data-testid="stSlider"] [role="slider"] {
-    background-color: #2ecc71 !important;
-    border-color: #2ecc71 !important;
-}
 
-[data-testid="stSlider"] [data-testid="stThumbValue"] {
-    color: #2ecc71 !important;
-}
 
-[data-testid="stSlider"] [data-baseweb="slider"] > div > div {
-    background-color: #2ecc71 !important;
-}
+
 
 [data-testid="stDataFrame"] * {
     font-size: 18px !important;
