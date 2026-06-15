@@ -4,12 +4,12 @@ import math
 
 st.markdown("""
 <style>
-[data-testid="stSlider"] [data-testid="stThumbValue"] {
-    visibility: hidden !important;
-}
-
-[data-testid="stSlider"] div[role="slider"] + div {
+[data-testid="stSlider"] [data-testid="stThumbValue"],
+[data-testid="stSlider"] [data-testid="stThumbValue"] *,
+[data-testid="stSlider"] div[class*="ThumbValue"],
+[data-testid="stSlider"] div[class*="thumbValue"] {
     display: none !important;
+    visibility: hidden !important;
 }
 </style>
 """, unsafe_allow_html=True)
