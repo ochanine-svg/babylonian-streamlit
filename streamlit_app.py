@@ -70,7 +70,7 @@ st.write("This app computes successive updates of the value of $x$ using")
 
 st.latex(r"\frac12\left(x+\frac{a}{x}\right)")
 
-st.write("The value of $x$ converges to $\sqrt{a}$.")
+st.write("The value of $x$ converges fast to $\sqrt{a}$.")
 
 
 
