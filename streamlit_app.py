@@ -187,6 +187,12 @@ def compute_iterations(a, x, use_fractions, number_of_iterations):
     rows = []
 
     x=x0
+
+    rows.append({
+    "n": 0,
+    "decimal approximation": float(x),
+    "fraction": str(x) if fraction_is_short_enough(x, max_fraction_chars) else "fraction too long to display"
+    })
     
     current_mode = use_fractions
 
