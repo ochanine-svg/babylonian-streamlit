@@ -13,7 +13,7 @@ st.write("Enter a positive number $a$ and a positive starting guess $x_0$.")
 st.latex(r"x_{n+1}=\frac12\left(x_n+\frac{a}{x_n}\right)")
 
 st.write("Try both a close starting guess and a far starting guess for x₀.
-Notice how rapidly the sequence approaches √a.")
+Notice how rapidly the sequence approaches f"$\\sqrt{{a}}$.")
 
 
 
