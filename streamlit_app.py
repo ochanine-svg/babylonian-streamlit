@@ -69,7 +69,9 @@ html, body, [class*="css"] {
 </style>
 """, unsafe_allow_html=True)
 
-
+st.write(
+    "Enter values below, then scroll down to see the approximations."
+)
 
 a_string = st.text_input("Enter a positive number $a$", value="5")
 
