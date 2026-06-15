@@ -95,13 +95,13 @@ st.markdown(
 st.markdown(
     """
     <p style="font-size:20px; font-weight:bold;">
-    Results appear below. You can adjust the adjust the number of rows.
+    Results appear in the table below. You can adjust the adjust the number of rows.
     </p>
     """,
     unsafe_allow_html=True,
 )
 
-number_of_iterations = st.slider("rows", 1, 50, 5)
+number_of_iterations = st.slider("# rows", 1, 50, 5)
 def fraction_is_short_enough(frac, max_chars=50):
     return len(str(frac)) <= max_chars
 
