@@ -66,7 +66,7 @@ st.write("This app repeatedly updates the value of $x$ using")
 
 st.latex(r"\frac12\left(x+\frac{a}{x}\right)")
 
-number_of_iterations = st.slider("Number of iterations", 1, 50, 5)
+
 
 st.write(
     "Try both a close starting guess and a far starting guess for $x_0$. "
@@ -236,6 +236,8 @@ st.dataframe(
         ),
     },
 )
+
+number_of_iterations = st.slider("Number of iterations", 1, 50, 5)
 
 st.subheader("Check")
 
