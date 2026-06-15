@@ -95,7 +95,7 @@ st.markdown(
 st.markdown(
     """
     <p style="font-size:20px; font-weight:bold;">
-    Results appear in the table below. You can adjust the adjust the number of rows.
+    Results appear in the table below. 
     </p>
     """,
     unsafe_allow_html=True,
