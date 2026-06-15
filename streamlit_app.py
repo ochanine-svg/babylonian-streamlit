@@ -95,7 +95,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-number_of_iterations = st.slider("# rows", 1, 50, 5)
+number_of_iterations = st.slider("# rows", 1, 50, 6)
 
 
 def fraction_is_short_enough(frac, max_chars=50):
