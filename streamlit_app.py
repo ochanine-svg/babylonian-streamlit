@@ -185,6 +185,9 @@ def parse_x0(x0_string, force_float_mode):
 
 def compute_iterations(a, x, use_fractions, number_of_iterations):
     rows = []
+
+    x=x0
+    
     current_mode = use_fractions
 
     for k in range(1, number_of_iterations + 1):
