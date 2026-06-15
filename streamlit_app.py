@@ -20,7 +20,11 @@ st.set_page_config(page_title="Babylonian Square Root", page_icon="√")
 
 st.title("The Babylonian Method")
 
-st.write("Enter a positive number $a$ and a positive starting guess $x_0$ for $\\sqrt{a}$.")
+
+
+a_string = st.text_input("Enter a positive number a", value="5")
+x0_string = st.text_input("Enter a positive starting guess x0 for the square root of a", value="5/2")
+number_of_iterations = st.slider("Number of iterations", 1, 50, 5)
 
 st. write("This app repeatedly updates the value of x with the value of ")
 
@@ -34,10 +38,6 @@ st.write(
 )
 
 
-
-a_string = st.text_input("a", value="5")
-x0_string = st.text_input("x0", value="5/2")
-number_of_iterations = st.slider("Number of iterations", 1, 50, 5)
 
 
 def fraction_is_short_enough(frac, max_chars=50):
