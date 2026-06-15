@@ -76,7 +76,7 @@ x0_string = st.text_input(
 st.markdown(
     """
     <p style="font-size:18px;">
-    (Try both a close guess and a terrible guess.)
+    (Try both a close guess and a terrible guess to see fast convergence.)
     </p>
     """,
     unsafe_allow_html=True,
