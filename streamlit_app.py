@@ -22,11 +22,11 @@ st.title("The Babylonian Method")
 
 st.write("Enter a positive number $a$ and a positive starting guess $x_0$ for $\\sqrt{a}$.")
 
-st. write("This app computes terms of the sequence")
+st. write("This app repeatedly updates the value of x with the value of ")
 
 
 
-st.latex(r"x_{n+1}=\frac12\left(x_n+\frac{a}{x_n}\right)")
+st.latex(r"x=\frac12\left(x+\frac{a}{x}\right)")
 
 st.write(
     "Try both a close starting guess and a far starting guess for $x_0$. "
