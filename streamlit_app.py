@@ -248,7 +248,7 @@ if use_fractions:
     st.markdown(
         """
         <p style="font-size:18px;">
-        If your initial guess is a whole number or entered as r/s, then exact values of x are shown until too long to display.
+        If your initial guess is whole r/s, then exact values of x are displayed if they fit.
         </p>
         """,
         unsafe_allow_html=True,
