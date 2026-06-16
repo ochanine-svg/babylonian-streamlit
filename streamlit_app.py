@@ -74,7 +74,7 @@ a_string = st.text_input("Enter a positive number $a$", value="5")
 
 x0_string = st.text_input(
     "Enter an initial guess for the square root of $a$. This is the initial value of $x$.",
-    value="5/2"
+    value="100"
 )
 
 st.markdown(
@@ -86,16 +86,9 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.markdown(
-    """
-    <p style="font-size:18px;">
-    Try both a decent guess for the square root and a terrible guess to explore convergence. You may need to use the slider.
-    </p>
-    """,
-    unsafe_allow_html=True,
-)
 
-number_of_iterations = st.slider("# rows", 1, 50, 6)
+
+number_of_iterations = st.slider("# rows", 1, 50, 11)
 
 
 def fraction_is_short_enough(frac, max_chars=50):
@@ -250,7 +243,7 @@ rows = compute_iterations(
     number_of_iterations,
 )
 
-st.subheader("Iterations")
+
 
 st.table(rows)
 
