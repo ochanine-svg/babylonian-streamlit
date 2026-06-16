@@ -191,7 +191,7 @@ def compute_iterations(a, x, use_fractions, number_of_iterations):
                     {
                         "n": k,
                         "decimal approximation": f"{float(x):.14f}",
-                        "exact value of x": str(x),
+                        "exact value of x displayed when x0=r/s or whole": str(x),
                     }
                 )
             else:
@@ -202,7 +202,7 @@ def compute_iterations(a, x, use_fractions, number_of_iterations):
                     {
                         "n": k,
                         "decimal approximation": f"{x:.14f}",
-                        "exact value of x": "too long to display",
+                        "exact value of x displayed when x0=r/s or whole": "too long to display",
                     }
                 )
 
@@ -212,7 +212,7 @@ def compute_iterations(a, x, use_fractions, number_of_iterations):
                 {
                     "n": k,
                     "decimal approximation": f"{x:.14f}",
-                    "exact value of x": "",
+                    "exact value of x displayed when x0=r/s or whole": "",
                 }
             )
 
