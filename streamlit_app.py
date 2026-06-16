@@ -1,6 +1,7 @@
 import streamlit as st
 from fractions import Fraction
 import math
+import pandas as pd
 
 st.markdown("""
 <style>
@@ -85,8 +86,6 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
-
-
 
 number_of_iterations = st.slider("# rows", 1, 50, 11)
 
@@ -174,47 +173,47 @@ def compute_iterations(a, x, use_fractions, number_of_iterations):
     rows = []
     current_mode = use_fractions
 
-    rows.append(
-        {
-            "n": 0,
-            "decimal approximation": f"{float(x):.14f}",
-            "exact value of x displayed when x0 whole or r/s, if not too long to display": str(x) if current_mode else "",
-        }
-    )
+    first_row = {
+        "n": 0,
+        "decimal approximation": f"{float(x):.14f}",
+    }
+
+    if use_fractions:
+        first_row["exact value"] = str(x)
+
+    rows.append(first_row)
 
     for k in range(1, number_of_iterations):
         if current_mode:
             x = Fraction(1, 2) * (x + a / x)
 
+            row = {
+                "n": k,
+                "decimal approximation": f"{float(x):.14f}",
+            }
+
             if fraction_is_short_enough(x):
-                rows.append(
-                    {
-                        "n": k,
-                        "decimal approximation": f"{float(x):.14f}",
-                        "exact value of x displayed when x0 whole or r/s, if not too long to display": str(x),
-                    }
-                )
+                row["exact value"] = str(x)
             else:
                 x = float(x)
                 a = float(a)
                 current_mode = False
-                rows.append(
-                    {
-                        "n": k,
-                        "decimal approximation": f"{x:.14f}",
-                        "exact value of x displayed when x0 whole or r/s, if not too long to display": "too long to display",
-                    }
-                )
+                row["exact value"] = "too long to display"
+
+            rows.append(row)
 
         else:
             x = 0.5 * (x + a / x)
-            rows.append(
-                {
-                    "n": k,
-                    "decimal approximation": f"{x:.14f}",
-                    "exact value of x displayed when x0 whole or r/s, if not too long to display": "",
-                }
-            )
+
+            row = {
+                "n": k,
+                "decimal approximation": f"{x:.14f}",
+            }
+
+            if use_fractions:
+                row["exact value"] = ""
+
+            rows.append(row)
 
     return rows
 
@@ -243,9 +242,38 @@ rows = compute_iterations(
     number_of_iterations,
 )
 
+df = pd.DataFrame(rows)
 
+if use_fractions:
+    st.markdown(
+        """
+        <p style="font-size:18px;">
+        Exact values are shown when they are not too long to display.
+        </p>
+        """,
+        unsafe_allow_html=True,
+    )
 
-st.table(rows)
+    st.dataframe(
+        df,
+        hide_index=True,
+        use_container_width=True,
+        column_config={
+            "n": st.column_config.NumberColumn("n", width="small"),
+            "decimal approximation": st.column_config.TextColumn("decimal approximation", width="medium"),
+            "exact value": st.column_config.TextColumn("exact value", width="large"),
+        },
+    )
+else:
+    st.dataframe(
+        df,
+        hide_index=True,
+        use_container_width=True,
+        column_config={
+            "n": st.column_config.NumberColumn("n", width="small"),
+            "decimal approximation": st.column_config.TextColumn("decimal approximation", width="medium"),
+        },
+    )
 
 st.subheader("Check")
 
