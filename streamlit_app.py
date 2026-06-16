@@ -80,7 +80,7 @@ x0_string = st.text_input(
 st.markdown(
     """
     <p style="font-size:20px; font-weight:bold;">
-    Results appear in the table below.
+    Results below.
     </p>
     """,
     unsafe_allow_html=True,
