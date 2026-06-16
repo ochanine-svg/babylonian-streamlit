@@ -8,6 +8,15 @@ st.markdown("""
     --slider-color: black !important;
 }
 
+st.markdown("""
+<style>
+[data-testid="stSlider"] [role="slider"] {
+    background-color: #2ecc71 !important;
+    border-color: #2ecc71 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 .stSlider [role="slider"] {
     background-color: black !important;
     border-color: black !important;
