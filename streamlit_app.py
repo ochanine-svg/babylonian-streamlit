@@ -4,28 +4,19 @@ import math
 
 st.markdown("""
 <style>
-.stSlider [data-baseweb="slider"] {
-    --slider-color: black !important;
-}
-
-st.markdown("""
-<style>
 [data-testid="stSlider"] [role="slider"] {
     background-color: #2ecc71 !important;
     border-color: #2ecc71 !important;
 }
-</style>
-""", unsafe_allow_html=True)
 
-.stSlider [role="slider"] {
-    background-color: black !important;
-    border-color: black !important;
+[data-testid="stSlider"] [data-testid="stThumbValue"],
+[data-testid="stSlider"] [data-testid="stThumbValue"] *,
+[data-testid="stSlider"] div[class*="ThumbValue"],
+[data-testid="stSlider"] div[class*="thumbValue"] {
+    display: none !important;
+    visibility: hidden !important;
 }
-</style>
-""", unsafe_allow_html=True)
 
-st.markdown("""
-<style>
 #MainMenu {
     visibility: hidden;
 }
@@ -64,10 +55,6 @@ html, body, [class*="css"] {
 [data-testid="stSlider"] label p {
     font-size: 18px !important;
 }
-
-
-
-
 
 [data-testid="stDataFrame"] * {
     font-size: 18px !important;
