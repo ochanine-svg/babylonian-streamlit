@@ -60,6 +60,18 @@ html, body, [class*="css"] {
 [data-testid="stDataFrame"] * {
     font-size: 18px !important;
 }
+
+/* Table width matched to about 42 fraction characters,
+   with room for x_n = or x_n ≈ in front. */
+[data-testid="stDataFrame"] {
+    width: min(100%, 56ch) !important;
+    max-width: min(100%, 56ch) !important;
+}
+
+[data-testid="stDataFrame"] > div {
+    width: 100% !important;
+    max-width: 100% !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -90,7 +102,7 @@ st.markdown(
 number_of_iterations = st.slider("# rows", 1, 50, 11)
 
 
-def fraction_is_short_enough(frac, max_chars=50):
+def fraction_is_short_enough(frac, max_chars=42):
     return len(str(frac)) <= max_chars
 
 
@@ -230,13 +242,13 @@ rows = compute_iterations(
 df = pd.DataFrame(rows)
 
 
-
 st.dataframe(
     df,
     hide_index=True,
-    use_container_width=True,
+    use_container_width=False,
+    width=620,
     column_config={
-        "x": st.column_config.TextColumn("x", width="medium"),
+        "x": st.column_config.TextColumn("x", width="large"),
     },
 )
 
