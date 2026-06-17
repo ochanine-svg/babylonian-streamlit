@@ -236,7 +236,7 @@ st.dataframe(
     hide_index=True,
     use_container_width=True,
     column_config={
-        "x": st.column_config.TextColumn("x", width="width"),
+        "x": st.column_config.TextColumn("x", width="medium"),
     },
 )
 
