@@ -74,7 +74,7 @@ st.write("The value of $x$ converges fast to $\sqrt{a}$.")
 a_string = st.text_input("Enter a positive number $a$", value="5")
 
 x0_string = st.text_input(
-    "Enter a positive initial guess for the square root of $a$. This is the initial value of $x$.",
+    "Enter a positive initial guess for the square root of $a$. This is the initial value of $x$. You can input a whole number, decimal, or fraction.",
     value="100"
 )
 
