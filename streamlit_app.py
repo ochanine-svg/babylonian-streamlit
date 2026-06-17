@@ -75,7 +75,7 @@ html, body, [class*="css"] {
 </style>
 """, unsafe_allow_html=True)
 
-st.write("Start with an initial guess for the square root of $a$, which will be stored in a variable $x$")
+st.write("Start with an initial guess for the square root of $a$, which will be stored in a variable $x$.")
 st.write("This app computes successive updates of the value of $x$ using")
 
 st.latex(r"\frac12\left(x+\frac{a}{x}\right)")
