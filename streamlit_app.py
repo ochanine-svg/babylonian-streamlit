@@ -90,8 +90,10 @@ st.markdown(
 number_of_iterations = st.slider("# rows", 1, 50, 11)
 
 
-def fraction_is_short_enough(frac, max_chars=50):
-    return len(str(frac)) <= max_chars
+def fraction_is_short_enough(frac, max_digits=60):
+    numerator_digits = int(frac.numerator.bit_length() * math.log10(2)) + 1
+    denominator_digits = int(frac.denominator.bit_length() * math.log10(2)) + 1
+    return numerator_digits + denominator_digits <= max_digits
 
 
 def parse_a(a_string):
@@ -173,47 +175,26 @@ def compute_iterations(a, x, use_fractions, number_of_iterations):
     rows = []
     current_mode = use_fractions
 
-    first_row = {
-        "n": 0,
-        "decimal approximation": f"{float(x):.14f}",
-    }
-
     if use_fractions:
-        first_row["exact value"] = str(x)
-
-    rows.append(first_row)
+        rows.append({"x": f"x0 = {x}"})
+    else:
+        rows.append({"x": f"x0 = {float(x):.14f}"})
 
     for k in range(1, number_of_iterations):
         if current_mode:
             x = Fraction(1, 2) * (x + a / x)
 
-            row = {
-                "n": k,
-                "decimal approximation": f"{float(x):.14f}",
-            }
-
             if fraction_is_short_enough(x):
-                row["exact value"] = str(x)
+                rows.append({"x": f"x{k} = {x}"})
             else:
+                rows.append({"x": f"x{k} ≈ {float(x):.14f}"})
                 x = float(x)
                 a = float(a)
                 current_mode = False
-                row["exact value"] = "too long to display"
-
-            rows.append(row)
 
         else:
             x = 0.5 * (x + a / x)
-
-            row = {
-                "n": k,
-                "decimal approximation": f"{x:.14f}",
-            }
-
-            if use_fractions:
-                row["exact value"] = ""
-
-            rows.append(row)
+            rows.append({"x": f"x{k} = {x:.14f}"})
 
     return rows
 
@@ -254,26 +235,14 @@ if use_fractions:
         unsafe_allow_html=True,
     )
 
-    st.dataframe(
-        df,
-        hide_index=True,
-        use_container_width=True,
-        column_config={
-            "n": st.column_config.NumberColumn("n", width="small"),
-            "decimal approximation": st.column_config.TextColumn("decimal approximation", width="medium"),
-            "exact value": st.column_config.TextColumn("exact value", width="large"),
-        },
-    )
-else:
-    st.dataframe(
-        df,
-        hide_index=True,
-        use_container_width=True,
-        column_config={
-            "n": st.column_config.NumberColumn("n", width="small"),
-            "decimal approximation": st.column_config.TextColumn("decimal approximation", width="medium"),
-        },
-    )
+st.dataframe(
+    df,
+    hide_index=True,
+    use_container_width=True,
+    column_config={
+        "x": st.column_config.TextColumn("x", width="large"),
+    },
+)
 
 st.subheader("Check")
 
