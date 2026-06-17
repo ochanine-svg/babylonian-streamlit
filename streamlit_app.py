@@ -83,7 +83,7 @@ st.latex(r"\frac12\left(x+\frac{a}{x}\right)")
 st.write("The value of $x$ converges fast to $\sqrt{a}$.")
 
 
-a_string = st.text_input("Enter a positive number $a$", value="5")
+a_string = st.text_input("Enter a positive number $a$. You can enter a decimal, whole number or fraction.", value="5")
 
 x0_string = st.text_input(
     "Enter a positive initial guess for the square root of $a$. This is the initial value of $x$. You can enter a decimal, whole number or fraction.",
