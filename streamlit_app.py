@@ -225,15 +225,7 @@ rows = compute_iterations(
 
 df = pd.DataFrame(rows)
 
-if use_fractions:
-    st.markdown(
-        """
-        <p style="font-size:18px;">
-        If your initial guess was entered as a fraction or whole number, then exact values of x are displayed while they fit.
-        </p>
-        """,
-        unsafe_allow_html=True,
-    )
+
 
 st.dataframe(
     df,
