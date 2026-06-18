@@ -57,6 +57,12 @@ html, body, [class*="css"] {
     font-size: 18px !important;
 }
 </style>
+
+section.main > div.block-container {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+}
+
 """, unsafe_allow_html=True)
 
 
