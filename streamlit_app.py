@@ -1,7 +1,7 @@
 import streamlit as st
 from fractions import Fraction
 import math
-
+import pandas as pd
 
 st.markdown("""
 <style>
@@ -56,26 +56,36 @@ html, body, [class*="css"] {
 [data-testid="stSlider"] label p {
     font-size: 18px !important;
 }
+
+[data-testid="stDataFrame"] * {
+    font-size: 18px !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
-
-st.write(r"Start with an initial guess for $\sqrt{a}$, which will be stored in a variable $x$.")
+st.write("Start with an initial guess for $\\sqrt{a}$, which will be stored in a variable $x$.")
 st.write("This app computes successive updates of the value of $x$ using")
 
 st.latex(r"\frac12\left(x+\frac{a}{x}\right)")
 
-st.write(r"The value of $x$ converges fast to $\sqrt{a}$.")
+st.write("The value of $x$ converges fast to $\\sqrt{a}$.")
 
 
 a_string = st.text_input("Enter a positive number $a$.", value="5")
 
 x0_string = st.text_input(
-    r"Enter a positive initial guess for $\sqrt{a}$.",
+    "Enter a positive initial guess for $\\sqrt{a}$.",
     value="3"
 )
 
-st.markdown("**Results below.**")
+st.markdown(
+    """
+    <p style="font-size:20px; font-weight:bold;">
+    Results below.
+    </p>
+    """,
+    unsafe_allow_html=True,
+)
 
 number_of_iterations = st.slider("# rows", 1, 50, 6)
 
@@ -92,9 +102,6 @@ def parse_positive_number(input_string, variable_name):
         else:
             value = float(input_string)
 
-        if not math.isfinite(value):
-            return None, f"{variable_name} has to be a finite number."
-
         if value <= 0:
             return None, f"{variable_name} has to be positive."
 
@@ -110,11 +117,11 @@ def parse_positive_number(input_string, variable_name):
 def compute_iterations(a, x, number_of_iterations):
     rows = []
 
-    rows.append(f"x0 = {x:.14f}")
+    rows.append({"x": f"x0 = {x:.14f}"})
 
     for k in range(1, number_of_iterations):
         x = 0.5 * (x + a / x)
-        rows.append(f"x{k} = {x:.14f}")
+        rows.append({"x": f"x{k} = {x:.14f}"})
 
     return rows
 
@@ -134,12 +141,17 @@ if x0_error:
 
 rows = compute_iterations(a, x0, number_of_iterations)
 
+df = pd.DataFrame(rows)
 
-st.markdown("**x**")
-
-for row in rows:
-    st.write(row)
-
+st.dataframe(
+    df,
+    hide_index=True,
+    use_container_width=False,
+    width=310,
+    column_config={
+        "x": st.column_config.TextColumn("x", width="small"),
+    },
+)
 
 st.subheader("Check")
 
