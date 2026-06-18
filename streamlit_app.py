@@ -74,7 +74,9 @@ html, body, [class*="css"] {
     height: 0rem !important;
 }
 
-
+[data-testid="stAppViewContainer"] {
+    margin-top: 0.5rem !important;
+}
 
 </style>
 
