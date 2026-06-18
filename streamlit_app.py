@@ -74,10 +74,7 @@ html, body, [class*="css"] {
     height: 0rem !important;
 }
 
-/* Pull first content slightly upward */
-[data-testid="stAppViewContainer"] {
-    margin-top: -0.5rem !important;
-}
+
 
 </style>
 
