@@ -60,23 +60,7 @@ html, body, [class*="css"] {
     font-size: 18px !important;
 }
 
-/* Reduce Streamlit's built-in top and bottom page padding */
-.block-container,
-[data-testid="stAppViewBlockContainer"],
-[data-testid="stMainBlockContainer"] {
-    padding-top: 0.25rem !important;
-    padding-bottom: 0.25rem !important;
-}
 
-/* Remove extra space caused by hidden header */
-[data-testid="stHeader"] {
-    display: none !important;
-    height: 0rem !important;
-}
-
-[data-testid="stAppViewContainer"] {
-    margin-top: 0.5rem !important;
-}
 
 </style>
 
