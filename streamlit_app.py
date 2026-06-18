@@ -1,24 +1,110 @@
 import streamlit as st
 from fractions import Fraction
 import math
+import pandas as pd
 
-st.set_page_config(page_title="Babylonian Square Root", page_icon="√")
+st.markdown("""
+<style>
+[data-testid="stSlider"] [role="slider"] {
+    background-color: #2ecc71 !important;
+    border-color: #2ecc71 !important;
+}
 
-st.title("Babylonian Method for Square Roots")
+[data-testid="stSlider"] [data-testid="stThumbValue"],
+[data-testid="stSlider"] [data-testid="stThumbValue"] *,
+[data-testid="stSlider"] div[class*="ThumbValue"],
+[data-testid="stSlider"] div[class*="thumbValue"] {
+    display: none !important;
+    visibility: hidden !important;
+}
 
-st.write(
-    "Enter a positive number $a$ and a positive starting guess $x_0$. "
-    "The app computes iterations of"
+#MainMenu {
+    visibility: hidden;
+}
+
+footer {
+    visibility: hidden;
+}
+
+header[data-testid="stHeader"] {
+    display: none !important;
+}
+
+div[data-testid="stToolbar"] {
+    display: none !important;
+}
+
+div[data-testid="stDecoration"] {
+    display: none !important;
+}
+
+html, body, [class*="css"] {
+    font-family: 'Merriweather', serif;
+    font-size: 18px;
+}
+
+.stTextInput input {
+    font-size: 18px !important;
+}
+
+[data-testid="stTextInput"] label,
+[data-testid="stTextInput"] label p {
+    font-size: 18px !important;
+}
+
+[data-testid="stSlider"] label,
+[data-testid="stSlider"] label p {
+    font-size: 18px !important;
+}
+
+[data-testid="stDataFrame"] * {
+    font-size: 18px !important;
+}
+
+/* Table width matched to about 42 fraction characters,
+   with room for x_n = or x_n ≈ in front. */
+[data-testid="stDataFrame"] {
+    width: min(100%, 56ch) !important;
+    max-width: min(100%, 56ch) !important;
+}
+
+[data-testid="stDataFrame"] > div {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.write("Start with an initial guess for $\sqrt{a}$, which will be stored in a variable $x$.")
+st.write("This app computes successive updates of the value of $x$ using")
+
+st.latex(r"\frac12\left(x+\frac{a}{x}\right)")
+
+st.write("The value of $x$ converges fast to $\sqrt{a}$.")
+
+
+a_string = st.text_input("Enter a positive number $a$. You can enter a whole number, decimal or fraction.", value="5")
+
+x0_string = st.text_input(
+    "Enter a positive initial guess for $\sqrt{a}$. You can enter a whole number, decimal or fraction.",
+    value="100"
 )
 
-st.latex(r"x_{n+1}=\frac12\left(x_n+\frac{a}{x_n}\right)")
+st.markdown(
+    """
+    <p style="font-size:20px; font-weight:bold;">
+    Results below.
+    </p>
+    """,
+    unsafe_allow_html=True,
+)
 
-st.write("The sequence should approach $\\sqrt{a}$.")
+number_of_iterations = st.slider("# rows", 1, 50, 11)
 
-def fraction_is_short_enough(frac, max_digits=60):
-    numerator_digits = int(frac.numerator.bit_length() * math.log10(2)) + 1
-    denominator_digits = int(frac.denominator.bit_length() * math.log10(2)) + 1
-    return numerator_digits + denominator_digits <= max_digits
+
+def fraction_is_short_enough(frac, max_chars=42):
+    return len(str(frac)) <= max_chars
+
 
 def parse_a(a_string):
     a_string = a_string.strip()
@@ -33,7 +119,6 @@ def parse_a(a_string):
             if a <= 0:
                 return None, None, "a has to be positive."
 
-            # Fraction mode is still possible.
             return a, True, None
 
         a_float = float(a_string)
@@ -42,10 +127,8 @@ def parse_a(a_string):
             return None, None, "a has to be positive."
 
         if a_float.is_integer():
-            # Treat whole-number inputs exactly.
             return Fraction(int(a_float)), True, None
 
-        # Decimal a forces decimal mode.
         return a_float, False, None
 
     except ValueError:
@@ -53,6 +136,7 @@ def parse_a(a_string):
 
     except ZeroDivisionError:
         return None, None, "A fraction cannot have 0 in the denominator."
+
 
 def parse_x0(x0_string, force_float_mode):
     x0_string = x0_string.strip()
@@ -96,55 +180,40 @@ def parse_x0(x0_string, force_float_mode):
     except ZeroDivisionError:
         return None, None, "A fraction cannot have 0 in the denominator."
 
-def compute_iterations(a, x, use_fractions, number_of_iterations, max_fraction_digits):
+
+def compute_iterations(a, x, use_fractions, number_of_iterations):
     rows = []
     current_mode = use_fractions
+    switched_from_fraction_to_decimal = False
 
-    for k in range(1, number_of_iterations + 1):
+    if use_fractions:
+        rows.append({"x": f"x0 = {x}"})
+    else:
+        rows.append({"x": f"x0 = {float(x):.14f}"})
+
+    for k in range(1, number_of_iterations):
         if current_mode:
             x = Fraction(1, 2) * (x + a / x)
 
-            if fraction_is_short_enough(x, max_fraction_digits):
-                rows.append(
-                    {
-                        "n": k,
-                        "exact value": str(x),
-                        "decimal approximation": f"{float(x):.14f}",
-                        "mode": "fraction",
-                    }
-                )
+            if fraction_is_short_enough(x):
+                rows.append({"x": f"x{k} = {x}"})
             else:
+                rows.append({"x": f"x{k} ≈ {float(x):.14f}"})
                 x = float(x)
                 a = float(a)
                 current_mode = False
-                rows.append(
-                    {
-                        "n": k,
-                        "exact value": "fraction too long",
-                        "decimal approximation": f"{x:.14f}",
-                        "mode": "switched to decimal",
-                    }
-                )
+                switched_from_fraction_to_decimal = True
 
         else:
             x = 0.5 * (x + a / x)
-            rows.append(
-                {
-                    "n": k,
-                    "exact value": "",
-                    "decimal approximation": f"{x:.14f}",
-                    "mode": "decimal",
-                }
-            )
+
+            if switched_from_fraction_to_decimal:
+                rows.append({"x": f"x{k} ≈ {x:.14f}"})
+            else:
+                rows.append({"x": f"x{k} = {x:.14f}"})
 
     return rows
 
-with st.sidebar:
-    st.header("Inputs")
-    a_string = st.text_input("a", value="2")
-    x0_string = st.text_input("x0", value="1")
-    number_of_iterations = st.slider("Number of iterations", 1, 50, 10)
-    max_fraction_digits = st.slider("Max fraction length before switching to decimals", 20, 200, 60)
 
 a, a_can_use_fractions, a_error = parse_a(a_string)
 
@@ -163,21 +232,26 @@ if x0_error:
 
 use_fractions = a_can_use_fractions and x0_can_use_fractions
 
-if use_fractions:
-    st.info("Treating a and x0 as fractions.")
-else:
-    st.info("Using decimal/float mode.")
-
 rows = compute_iterations(
     a,
     x0,
     use_fractions,
     number_of_iterations,
-    max_fraction_digits,
 )
 
-st.subheader("Iterations")
-st.dataframe(rows, use_container_width=True, hide_index=True)
+df = pd.DataFrame(rows)
+
+
+st.dataframe(
+    df,
+    hide_index=True,
+    use_container_width=False,
+    width=620,
+    column_config={
+        "x": st.column_config.TextColumn("x", width="large"),
+    },
+)
 
 st.subheader("Check")
-st.write(f"Decimal value of $\\sqrt{{a}}$: `{math.sqrt(float(a)):.14f}`")
+
+st.write(f"$\\sqrt{{a}} \\approx {math.sqrt(float(a)):.14f}$")
