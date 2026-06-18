@@ -86,7 +86,7 @@ x0_string = st.text_input(
 
 st.markdown("**Results below.**")
 
-number_of_iterations = st.slider("# rows", 1, 50, 9)
+
 
 
 def parse_positive_number(input_string, variable_name):
@@ -139,7 +139,8 @@ x0, x0_error = parse_positive_number(x0_string, "x0")
 if x0_error:
     st.error(x0_error)
     st.stop()
-
+    
+number_of_iterations = st.slider("# rows", 1, 50, 9)
 
 rows = compute_iterations(a, x0, number_of_iterations)
 
