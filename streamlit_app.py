@@ -57,42 +57,25 @@ html, body, [class*="css"] {
     font-size: 18px !important;
 }
 
-
-
-.sequence-table {
-    border-collapse: collapse;
-    width: fit-content;
-    max-width: 100%;
+.result-row {
     font-size: 18px;
+    margin-bottom: 0.25rem;
 }
-
-.sequence-table th,
-.sequence-table td {
-    border: 1px solid rgba(49, 51, 63, 0.25);
-    padding: 0.35rem 0.75rem;
-    text-align: left;
-    white-space: nowrap;
-    background: transparent;
-    color: inherit;
-}
-
-
-
 </style>
 """, unsafe_allow_html=True)
 
-st.write("Start with an initial guess for $\sqrt{a}$, which will be stored in a variable $x$.")
+st.write(r"Start with an initial guess for $\sqrt{a}$, which will be stored in a variable $x$.")
 st.write("This app computes successive updates of the value of $x$ using")
 
 st.latex(r"\frac12\left(x+\frac{a}{x}\right)")
 
-st.write("The value of $x$ converges fast to $\sqrt{a}$.")
+st.write(r"The value of $x$ converges fast to $\sqrt{a}$.")
 
 
 a_string = st.text_input("Enter a positive number $a$.", value="5")
 
 x0_string = st.text_input(
-    "Enter a positive initial guess for $\sqrt{a}$.",
+    r"Enter a positive initial guess for $\sqrt{a}$.",
     value="3"
 )
 
@@ -108,139 +91,96 @@ st.markdown(
 number_of_iterations = st.slider("# rows", 1, 50, 6)
 
 
-
-
 def parse_a(a_string):
     a_string = a_string.strip()
 
     if not a_string:
-        return None, None, "Enter a value for a."
+        return None, "Enter a value for a."
 
     try:
         if "/" in a_string:
-            a = Fraction(a_string)
+            a = float(Fraction(a_string))
+        else:
+            a = float(a_string)
 
-            if a <= 0:
-                return None, None, "a has to be positive."
+        if a <= 0:
+            return None, "a has to be positive."
 
-            return a, True, None
-
-        a_float = float(a_string)
-
-        if a_float <= 0:
-            return None, None, "a has to be positive."
-
-        if a_float.is_integer():
-            return Fraction(int(a_float)), True, None
-
-        return a_float, False, None
+        return a, None
 
     except ValueError:
-        return None, None, "That was not a valid number."
+        return None, "That was not a valid number."
 
     except ZeroDivisionError:
-        return None, None, "A fraction cannot have 0 in the denominator."
+        return None, "A fraction cannot have 0 in the denominator."
 
 
-def parse_x0(x0_string, force_float_mode):
+def parse_x0(x0_string):
     x0_string = x0_string.strip()
 
     if not x0_string:
-        return None, None, "Enter a value for x0."
+        return None, "Enter a value for x0."
 
     try:
-        if force_float_mode:
-            if "/" in x0_string:
-                x0 = float(Fraction(x0_string))
-            else:
-                x0 = float(x0_string)
-
-            if x0 <= 0:
-                return None, None, "x0 has to be positive."
-
-            return x0, False, None
-
         if "/" in x0_string:
-            x0 = Fraction(x0_string)
+            x0 = float(Fraction(x0_string))
+        else:
+            x0 = float(x0_string)
 
-            if x0 <= 0:
-                return None, None, "x0 has to be positive."
+        if x0 <= 0:
+            return None, "x0 has to be positive."
 
-            return x0, True, None
-
-        x0_float = float(x0_string)
-
-        if x0_float <= 0:
-            return None, None, "x0 has to be positive."
-
-        if x0_float.is_integer():
-            return Fraction(int(x0_float)), True, None
-
-        return x0_float, False, None
+        return x0, None
 
     except ValueError:
-        return None, None, "That was not a valid number."
+        return None, "That was not a valid number."
 
     except ZeroDivisionError:
-        return None, None, "A fraction cannot have 0 in the denominator."
+        return None, "A fraction cannot have 0 in the denominator."
 
 
-def compute_iterations(a, x, use_fractions, number_of_iterations):
+def compute_iterations(a, x, number_of_iterations):
     rows = []
 
-    rows.append({"x": f"x0 = {float(x):.14f}"})
+    rows.append(f"x0 = {x:.14f}")
 
     for k in range(1, number_of_iterations):
-        if use_fractions:
-            x = Fraction(1, 2) * (x + a / x)
-        else:
-            x = 0.5 * (x + a / x)
-
-        rows.append({"x": f"x{k} = {float(x):.14f}"})
+        x = 0.5 * (x + a / x)
+        rows.append(f"x{k} = {x:.14f}")
 
     return rows
 
-a, a_can_use_fractions, a_error = parse_a(a_string)
+
+a, a_error = parse_a(a_string)
 
 if a_error:
     st.error(a_error)
     st.stop()
 
-x0, x0_can_use_fractions, x0_error = parse_x0(
-    x0_string,
-    force_float_mode=not a_can_use_fractions,
-)
+x0, x0_error = parse_x0(x0_string)
 
 if x0_error:
     st.error(x0_error)
     st.stop()
 
-use_fractions = a_can_use_fractions and x0_can_use_fractions
-
 rows = compute_iterations(
     a,
     x0,
-    use_fractions,
     number_of_iterations,
 )
 
-table_html = """
-<table class="sequence-table">
-<thead>
-<tr><th>x</th></tr>
-</thead>
-<tbody>
-"""
+st.markdown("**x**")
 
 for row in rows:
-    table_html += f"<tr><td>{row['x']}</td></tr>"
+    st.markdown(
+        f"""
+        <div class="result-row">
+        {row}
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
-table_html += """
-</tbody>
-</table>
-"""
-
-st.markdown(table_html, unsafe_allow_html=True)
 st.subheader("Check")
 
-st.write(f"$\\sqrt{{a}} \\approx {math.sqrt(float(a)):.14f}$")
+st.write(f"$\\sqrt{{a}} \\approx {math.sqrt(a):.14f}$")
