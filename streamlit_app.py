@@ -1,7 +1,7 @@
 import streamlit as st
 from fractions import Fraction
 import math
-import pandas as pd
+
 
 st.markdown("""
 <style>
@@ -57,21 +57,7 @@ html, body, [class*="css"] {
     font-size: 18px !important;
 }
 
-[data-testid="stDataFrame"] * {
-    font-size: 18px !important;
-}
 
-/* Table width matched to about 42 fraction characters,
-   with room for x_n = or x_n ≈ in front. */
-[data-testid="stDataFrame"] {
-    width: min(100%, 32ch) !important;
-    max-width: min(100%, 32ch) !important;
-}
-
-[data-testid="stDataFrame"] > div {
-    width: 100% !important;
-    max-width: 100% !important;
-}
 
 .sequence-table {
     border-collapse: collapse;
@@ -122,8 +108,6 @@ st.markdown(
 number_of_iterations = st.slider("# rows", 1, 50, 6)
 
 
-def fraction_is_short_enough(frac, max_chars=42):
-    return len(str(frac)) <= max_chars
 
 
 def parse_a(a_string):
