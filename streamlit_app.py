@@ -5,6 +5,12 @@ import math
 
 st.markdown("""
 <style>
+section.main > div.block-container {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+}
+
+
 [data-testid="stSlider"] [role="slider"] {
     background-color: #2ecc71 !important;
     border-color: #2ecc71 !important;
@@ -58,10 +64,7 @@ html, body, [class*="css"] {
 }
 </style>
 
-section.main > div.block-container {
-    padding-top: 1rem !important;
-    padding-bottom: 1rem !important;
-}
+
 
 """, unsafe_allow_html=True)
 
