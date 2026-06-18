@@ -83,11 +83,11 @@ st.latex(r"\frac12\left(x+\frac{a}{x}\right)")
 st.write("The value of $x$ converges fast to $\sqrt{a}$.")
 
 
-a_string = st.text_input("Enter a positive number $a$.", value="3")
+a_string = st.text_input("Enter a positive number $a$.", value="5")
 
 x0_string = st.text_input(
     "Enter a positive initial guess for $\sqrt{a}$.",
-    value="100"
+    value="3"
 )
 
 st.markdown(
@@ -99,7 +99,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-number_of_iterations = st.slider("# rows", 1, 50, 11)
+number_of_iterations = st.slider("# rows", 1, 50, 6)
 
 
 def fraction_is_short_enough(frac, max_chars=42):
