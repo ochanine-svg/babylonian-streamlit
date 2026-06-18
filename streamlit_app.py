@@ -64,8 +64,8 @@ html, body, [class*="css"] {
 /* Table width matched to about 42 fraction characters,
    with room for x_n = or x_n ≈ in front. */
 [data-testid="stDataFrame"] {
-    width: min(100%, 56ch) !important;
-    max-width: min(100%, 56ch) !important;
+    width: min(100%, 32ch) !important;
+    max-width: min(100%, 32ch) !important;
 }
 
 [data-testid="stDataFrame"] > div {
@@ -227,7 +227,6 @@ st.dataframe(
     df,
     hide_index=True,
     use_container_width=False,
-    width=620,
     column_config={
         "x": st.column_config.TextColumn("x", width="large"),
     },
