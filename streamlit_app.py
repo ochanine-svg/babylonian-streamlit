@@ -56,13 +56,9 @@ html, body, [class*="css"] {
 [data-testid="stSlider"] label p {
     font-size: 18px !important;
 }
-
-.result-row {
-    font-size: 18px;
-    margin-bottom: 0.25rem;
-}
 </style>
 """, unsafe_allow_html=True)
+
 
 st.write(r"Start with an initial guess for $\sqrt{a}$, which will be stored in a variable $x$.")
 st.write("This app computes successive updates of the value of $x$ using")
@@ -79,58 +75,30 @@ x0_string = st.text_input(
     value="3"
 )
 
-st.markdown(
-    """
-    <p style="font-size:20px; font-weight:bold;">
-    Results below.
-    </p>
-    """,
-    unsafe_allow_html=True,
-)
+st.markdown("**Results below.**")
 
 number_of_iterations = st.slider("# rows", 1, 50, 6)
 
 
-def parse_a(a_string):
-    a_string = a_string.strip()
+def parse_positive_number(input_string, variable_name):
+    input_string = input_string.strip()
 
-    if not a_string:
-        return None, "Enter a value for a."
-
-    try:
-        if "/" in a_string:
-            a = float(Fraction(a_string))
-        else:
-            a = float(a_string)
-
-        if a <= 0:
-            return None, "a has to be positive."
-
-        return a, None
-
-    except ValueError:
-        return None, "That was not a valid number."
-
-    except ZeroDivisionError:
-        return None, "A fraction cannot have 0 in the denominator."
-
-
-def parse_x0(x0_string):
-    x0_string = x0_string.strip()
-
-    if not x0_string:
-        return None, "Enter a value for x0."
+    if not input_string:
+        return None, f"Enter a value for {variable_name}."
 
     try:
-        if "/" in x0_string:
-            x0 = float(Fraction(x0_string))
+        if "/" in input_string:
+            value = float(Fraction(input_string))
         else:
-            x0 = float(x0_string)
+            value = float(input_string)
 
-        if x0 <= 0:
-            return None, "x0 has to be positive."
+        if not math.isfinite(value):
+            return None, f"{variable_name} has to be a finite number."
 
-        return x0, None
+        if value <= 0:
+            return None, f"{variable_name} has to be positive."
+
+        return value, None
 
     except ValueError:
         return None, "That was not a valid number."
@@ -151,35 +119,27 @@ def compute_iterations(a, x, number_of_iterations):
     return rows
 
 
-a, a_error = parse_a(a_string)
+a, a_error = parse_positive_number(a_string, "a")
 
 if a_error:
     st.error(a_error)
     st.stop()
 
-x0, x0_error = parse_x0(x0_string)
+x0, x0_error = parse_positive_number(x0_string, "x0")
 
 if x0_error:
     st.error(x0_error)
     st.stop()
 
-rows = compute_iterations(
-    a,
-    x0,
-    number_of_iterations,
-)
+
+rows = compute_iterations(a, x0, number_of_iterations)
+
 
 st.markdown("**x**")
 
 for row in rows:
-    st.markdown(
-        f"""
-        <div class="result-row">
-        {row}
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    st.write(row)
+
 
 st.subheader("Check")
 
