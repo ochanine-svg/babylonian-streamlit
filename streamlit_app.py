@@ -72,6 +72,26 @@ html, body, [class*="css"] {
     width: 100% !important;
     max-width: 100% !important;
 }
+
+.sequence-table {
+    border-collapse: collapse;
+    width: fit-content;
+    max-width: 100%;
+    font-size: 18px;
+}
+
+.sequence-table th,
+.sequence-table td {
+    border: 1px solid rgba(49, 51, 63, 0.25);
+    padding: 0.35rem 0.75rem;
+    text-align: left;
+    white-space: nowrap;
+    background: transparent;
+    color: inherit;
+}
+
+
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -220,10 +240,23 @@ rows = compute_iterations(
     number_of_iterations,
 )
 
-df = pd.DataFrame(rows)
+table_html = """
+<table class="sequence-table">
+<thead>
+<tr><th>x</th></tr>
+</thead>
+<tbody>
+"""
 
+for row in rows:
+    table_html += f"<tr><td>{row['x']}</td></tr>"
 
-st.table(df)
+table_html += """
+</tbody>
+</table>
+"""
+
+st.markdown(table_html, unsafe_allow_html=True)
 st.subheader("Check")
 
 st.write(f"$\\sqrt{{a}} \\approx {math.sqrt(float(a)):.14f}$")
