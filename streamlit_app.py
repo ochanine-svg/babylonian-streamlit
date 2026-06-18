@@ -60,22 +60,34 @@ html, body, [class*="css"] {
 [data-testid="stDataFrame"] * {
     font-size: 18px !important;
 }
+
+/* Table width matched to about 42 fraction characters,
+   with room for x_n = or x_n ≈ in front. */
+[data-testid="stDataFrame"] {
+    width: min(100%, 56ch) !important;
+    max-width: min(100%, 56ch) !important;
+}
+
+[data-testid="stDataFrame"] > div {
+    width: 100% !important;
+    max-width: 100% !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
-st.write("Start with an initial guess for $\\sqrt{a}$, which will be stored in a variable $x$.")
+st.write("Start with an initial guess for $\sqrt{a}$, which will be stored in a variable $x$.")
 st.write("This app computes successive updates of the value of $x$ using")
 
 st.latex(r"\frac12\left(x+\frac{a}{x}\right)")
 
-st.write("The value of $x$ converges fast to $\\sqrt{a}$.")
+st.write("The value of $x$ converges fast to $\sqrt{a}$.")
 
 
-a_string = st.text_input("Enter a positive number $a$.", value="5")
+a_string = st.text_input("Enter a positive number $a$. You can enter a whole number, decimal or fraction.", value="5")
 
 x0_string = st.text_input(
-    "Enter a positive initial guess for $\\sqrt{a}$.",
-    value="3"
+    "Enter a positive initial guess for $\sqrt{a}$. You can enter a whole number, decimal or fraction.",
+    value="100"
 )
 
 st.markdown(
@@ -87,72 +99,159 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-number_of_iterations = st.slider("# rows", 1, 50, 6)
+number_of_iterations = st.slider("# rows", 1, 50, 11)
 
 
-def parse_positive_number(input_string, variable_name):
-    input_string = input_string.strip()
+def fraction_is_short_enough(frac, max_chars=42):
+    return len(str(frac)) <= max_chars
 
-    if not input_string:
-        return None, f"Enter a value for {variable_name}."
+
+def parse_a(a_string):
+    a_string = a_string.strip()
+
+    if not a_string:
+        return None, None, "Enter a value for a."
 
     try:
-        if "/" in input_string:
-            value = float(Fraction(input_string))
-        else:
-            value = float(input_string)
+        if "/" in a_string:
+            a = Fraction(a_string)
 
-        if value <= 0:
-            return None, f"{variable_name} has to be positive."
+            if a <= 0:
+                return None, None, "a has to be positive."
 
-        return value, None
+            return a, True, None
+
+        a_float = float(a_string)
+
+        if a_float <= 0:
+            return None, None, "a has to be positive."
+
+        if a_float.is_integer():
+            return Fraction(int(a_float)), True, None
+
+        return a_float, False, None
 
     except ValueError:
-        return None, "That was not a valid number."
+        return None, None, "That was not a valid number."
 
     except ZeroDivisionError:
-        return None, "A fraction cannot have 0 in the denominator."
+        return None, None, "A fraction cannot have 0 in the denominator."
 
 
-def compute_iterations(a, x, number_of_iterations):
+def parse_x0(x0_string, force_float_mode):
+    x0_string = x0_string.strip()
+
+    if not x0_string:
+        return None, None, "Enter a value for x0."
+
+    try:
+        if force_float_mode:
+            if "/" in x0_string:
+                x0 = float(Fraction(x0_string))
+            else:
+                x0 = float(x0_string)
+
+            if x0 <= 0:
+                return None, None, "x0 has to be positive."
+
+            return x0, False, None
+
+        if "/" in x0_string:
+            x0 = Fraction(x0_string)
+
+            if x0 <= 0:
+                return None, None, "x0 has to be positive."
+
+            return x0, True, None
+
+        x0_float = float(x0_string)
+
+        if x0_float <= 0:
+            return None, None, "x0 has to be positive."
+
+        if x0_float.is_integer():
+            return Fraction(int(x0_float)), True, None
+
+        return x0_float, False, None
+
+    except ValueError:
+        return None, None, "That was not a valid number."
+
+    except ZeroDivisionError:
+        return None, None, "A fraction cannot have 0 in the denominator."
+
+
+def compute_iterations(a, x, use_fractions, number_of_iterations):
     rows = []
+    current_mode = use_fractions
+    switched_from_fraction_to_decimal = False
 
-    rows.append({"x": f"x0 = {x:.14f}"})
+    if use_fractions:
+        rows.append({"x": f"x0 = {x}"})
+    else:
+        rows.append({"x": f"x0 = {float(x):.14f}"})
 
     for k in range(1, number_of_iterations):
-        x = 0.5 * (x + a / x)
-        rows.append({"x": f"x{k} = {x:.14f}"})
+        if current_mode:
+            x = Fraction(1, 2) * (x + a / x)
+
+            if fraction_is_short_enough(x):
+                rows.append({"x": f"x{k} = {x}"})
+            else:
+                rows.append({"x": f"x{k} ≈ {float(x):.14f}"})
+                x = float(x)
+                a = float(a)
+                current_mode = False
+                switched_from_fraction_to_decimal = True
+
+        else:
+            x = 0.5 * (x + a / x)
+
+            if switched_from_fraction_to_decimal:
+                rows.append({"x": f"x{k} ≈ {x:.14f}"})
+            else:
+                rows.append({"x": f"x{k} = {x:.14f}"})
 
     return rows
 
 
-a, a_error = parse_positive_number(a_string, "a")
+a, a_can_use_fractions, a_error = parse_a(a_string)
 
 if a_error:
     st.error(a_error)
     st.stop()
 
-x0, x0_error = parse_positive_number(x0_string, "x0")
+x0, x0_can_use_fractions, x0_error = parse_x0(
+    x0_string,
+    force_float_mode=not a_can_use_fractions,
+)
 
 if x0_error:
     st.error(x0_error)
     st.stop()
 
+use_fractions = a_can_use_fractions and x0_can_use_fractions
 
-rows = compute_iterations(a, x0, number_of_iterations)
+rows = compute_iterations(
+    a,
+    x0,
+    use_fractions,
+    number_of_iterations,
+)
 
 df = pd.DataFrame(rows)
+
 
 st.dataframe(
     df,
     hide_index=True,
     use_container_width=False,
-    width=310,
+    width=620,
     column_config={
-        "x": st.column_config.TextColumn("x", width="small"),
+        "x": st.column_config.TextColumn("x", width="large"),
     },
 )
 
 st.subheader("Check")
 
-st.write(f"$\\sqrt{{a}} \\approx {math.sqrt(a):.14f}$")
+st.write(f"$\\sqrt{{a}} \\approx {math.sqrt(float(a)):.14f}$")
