@@ -72,12 +72,12 @@ a_string = st.text_input("Enter a positive number $a$.", value="5")
 
 x0_string = st.text_input(
     r"Enter a positive initial guess for $\sqrt{a}$.",
-    value="3"
+    value="100"
 )
 
 st.markdown("**Results below.**")
 
-number_of_iterations = st.slider("# rows", 1, 50, 6)
+number_of_iterations = st.slider("# rows", 1, 50, 11)
 
 
 def parse_positive_number(input_string, variable_name):
