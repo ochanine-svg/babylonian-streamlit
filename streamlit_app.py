@@ -223,15 +223,7 @@ rows = compute_iterations(
 df = pd.DataFrame(rows)
 
 
-st.dataframe(
-    df,
-    hide_index=True,
-    use_container_width=False,
-    column_config={
-        "x": st.column_config.TextColumn("x", width="large"),
-    },
-)
-
+st.table(df)
 st.subheader("Check")
 
 st.write(f"$\\sqrt{{a}} \\approx {math.sqrt(float(a)):.14f}$")
